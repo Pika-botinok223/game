@@ -72,6 +72,7 @@ export class Manipulator {
     this.game.audio.play('manipulator_grab', { vol: 0.8 });
     this.loopSnd = this.game.audio.loop('suit_charge_loop', { vol: 0.12, pitch: 0.8 });
     this.glow = 1;
+    this.stuckT = 0; this.lastSep = undefined;
   }
 
   release(drop = true) {
@@ -98,7 +99,7 @@ export class Manipulator {
     this._muzzle.set(o.x + d.x * 0.7 + right.x * 0.18, o.y + d.y * 0.7 - 0.12 + right.y * 0.18, o.z + d.z * 0.7 + right.z * 0.18);
 
     if (input) {
-      if (input.wasPressed('Mouse1')) {
+      if (input.wasPressed('Mouse2') || input.wasPressed('Mouse1')) {
         if (this.held) this.release();
         else {
           const t = this.pick();
@@ -117,7 +118,10 @@ export class Manipulator {
       const b = pr.body;
       const dx = target.x - b.position.x, dy = target.y - b.position.y, dz = target.z - b.position.z;
       const dist = Math.hypot(dx, dy, dz);
-      if (dist > 5.5 || !pr.alive) { this.release(); }
+      // drop the prop only when it is far away AND not closing in (stuck behind geometry), or absurdly far
+      if (dist > 5.5 && dist > (this.lastSep === undefined ? 1e9 : this.lastSep) - 6 * dt) this.stuckT = (this.stuckT || 0) + dt; else this.stuckT = 0;
+      this.lastSep = dist;
+      if (this.stuckT > 0.7 || dist > 30 || !pr.alive) { this.release(); }
       else {
         const k = 14;
         let vx = dx * k, vy = dy * k, vz = dz * k;

@@ -131,7 +131,7 @@ export function build(game, b) {
   // south wall with a door opening at x=0 (door entity) and windows at +-2.9
   const winS = [[-2.9, 1.6], [2.9, 1.6]];
   const south = (lo, hi, y0, y1) => b.box(lo, y0, 1.3, hi, y1, 1.5, tramMat, { ...tcol, tile: 2 });
-  south(-4.2, 4.2, 2.3, 3.0); south(-4.2, 4.2, TF, 0.95);
+  south(-4.2, 4.2, 2.3, 3.0); south(-4.2, -1.1, TF, 0.95); south(1.1, 4.2, TF, 0.95);
   south(-4.2, -3.7, 0.95, 2.3); south(-2.1, -1.1, 0.95, 2.3); south(1.1, 2.1, 0.95, 2.3); south(3.7, 4.2, 0.95, 2.3);
   glass(b, -3.7, 0.95, 1.38, -2.1, 2.3, 1.42); glass(b, 2.1, 0.95, 1.38, 3.7, 2.3, 1.42);
   for (const [wc, ww] of winN) glass(b, wc - ww / 2, 0.95, -1.42, wc + ww / 2, 2.3, -1.38);
@@ -149,7 +149,7 @@ export function build(game, b) {
   sign(game, ['AVE MARIA', 'LAUNCH DAY'], -1.0, 2.2, -1.46, 1.6, 0.45, 0, { pw: 512, bg: '#0f1a2a', fg: '#ffffff', border: '#ffb22e' });
   sign(game, ['NEXT: SECTOR C'], 1.6, 2.8, -1.46, 1.2, 0.3, 0, { pw: 512, bg: '#0f1a24', fg: '#44ddff', border: null });
   sign(game, ['DX-90', 'T - 4 HOURS'], -3.9, 2.55, -0.9, 1.0, 0.4, Math.PI / 2, { pw: 512, bg: '#101010', fg: '#ff4422' });
-  const tramDoor = game.add(new Door(game, { x: 0, y: TF, z: 1.4, w: 2.2, h: 2.3, d: 0.2, axis: 'x', tex: 'metal_plate', speed: 1.6, silent: true }));
+  const tramDoor = game.add(new Door(game, { x: 0, y: TF, z: 1.4, w: 2.2, h: 2.3, d: 0.2, axis: 'x', tex: 'metal_plate', speed: 2.2, silent: true, split: true }));
   tramDoor.group.visible = true;
 
   // ============================================================ station + Sector C (arrives with the tram)

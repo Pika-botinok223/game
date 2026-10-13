@@ -71,6 +71,7 @@ export function build(game, b) {
   b.box(-11.7, 0, -41, -9.4, 0.92, -37.5, 'metal_wall', { tile: 1.5, matOpts: { color: 0xa7b3bf } });
   b.box(-11.8, 0.92, -41.1, -9.3, 1.0, -37.4, 'tile_white', { tile: 1, collide: false });
   sign(game, ['M-7 FIELD', 'MANIPULATOR', 'CARGO TOOL'], -11.92, 2.2, -39.2, 1.8, 0.9, Math.PI / 2, { pw: 512, bg: '#101820', fg: '#ffb22e' });
+  game.add(new Pickup(game, 'manipulator', -10.55, 1.12, -39.2, { range: 2.1 }));
   // racks, drums, junk
   for (const [x, z] of [[-10, -54], [-8.6, -54.4], [-10.4, -52.8]]) game.add(new Prop(game, 'barrel', x, 0.01, z));
   for (const [x, z] of [[-5, -55], [-4.1, -55.2]]) game.add(new Prop(game, 'crate', x, 0.01, z));
@@ -88,7 +89,6 @@ export function build(game, b) {
   b.wall(12.3, -58.3, 20.3, -58.3, 7.4, 'concrete_wall', { thick: 0.3 });
   b.box(-4, 0, -84, 20, 2.4, -77, 'metal_floor', { tile: 2 });          // raised catwalk platform
   b.box(-4, 2.3, -77.2, 20, 2.45, -77, 'hazard_stripes', { tile: 0.5, collide: false });
-  b.box(-4, 2.4, -84, 20, 3.6, -83.7, null, { visible: false });
   // railings on the catwalk edge
   for (let x = -3.6; x <= 19.6; x += 1.6) cylinder(b, x, 2.95, -77.1, 0.04, 1.1, 'y', 'metal_plate', { collide: false });
   b.box(-4, 3.4, -77.15, 20, 3.5, -77.05, 'metal_plate', { collide: false });
@@ -123,9 +123,9 @@ export function build(game, b) {
   b.lamp(12, 7.2, -105, { color: 0xffe0b0, intensity: 50, distance: 16, w: 2 });
   b.lamp(2, 7.2, -105, { color: 0xffe0b0, intensity: 40, distance: 16, w: 2 });
   // far pedestal + fuse
-  b.box(7, 0, -103, 9, 0.9, -101, 'metal_wall', { tile: 1, matOpts: { color: 0x8a96a2 } });
-  const fuse = game.add(new Prop(game, 'fuse', 8, 0.91, -102));
-  const fuseSpot = game.lights.add({ pos: new THREE.Vector3(8, 1.8, -102), color: 0x44ddff, intensity: 14, distance: 6 });
+  b.box(7, 0, -101.5, 9, 0.9, -99.5, 'metal_wall', { tile: 1, matOpts: { color: 0x8a96a2 } });
+  const fuse = game.add(new Prop(game, 'fuse', 8, 0.91, -100.5));
+  const fuseSpot = game.lights.add({ pos: new THREE.Vector3(8, 1.8, -100.5), color: 0x44ddff, intensity: 14, distance: 6 });
   const sp2 = game.add(new Spitter(game, 1, 0, -108, { yaw: 0 }));
   const sp3 = game.add(new Spitter(game, 15, 0, -108, { yaw: 0 }));
   sign(game, ['WARNING', 'CELL RUNOFF', 'DO NOT ENTER'], 8, 3.6, -111.95, 3.2, 1.2, 0, { pw: 512, bg: '#f2c200', fg: '#101010', border: null });
@@ -207,7 +207,7 @@ export function build(game, b) {
       s.sayNoWait('varga_c3_3');
       await s.wait(3);
       s.sayNoWait('varga_c3_4');
-      const cleared = () => barricade.every((c) => !c.alive || Math.hypot(c.body.position.x - 8, c.body.position.z + 57.4) > 2.4 || c.body.position.y > 4);
+      const cleared = () => barricade.every((c) => !c.alive || Math.abs(c.body.position.x - 8) > 1.75 || c.body.position.z > -56.0 || c.body.position.y > 4 || c.held);
       await s.step('Clear the barricade: grab the crates with RIGHT MOUSE', cleared, () => barricade.forEach((c) => c.alive && c.removeFromWorld()));
       game.audio.play('door_open', { vol: 0.6 });
       game.add(new Trigger(game, [-4, -1, -75], [20, 4, -58.3], { onEnter: () => { s.sayNoWait('varga_c3_5'); } }));

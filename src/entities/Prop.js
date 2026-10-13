@@ -8,7 +8,7 @@ const PRESETS = {
   crate_small:  { model: 'crate',            hx: 0.3,  hy: 0.3,  hz: 0.3,  mass: 6,  hp: 9999, modelOpts: { size: 0.6 } },
   barrel:       { model: 'barrel',           hx: 0.3,  hy: 0.45, hz: 0.3,  mass: 9,  hp: 9999 },
   barrel_explosive: { model: 'barrel_explosive', hx: 0.3, hy: 0.45, hz: 0.3, mass: 9, hp: 20, explosive: true },
-  cart:         { model: 'cart',             hx: 0.78, hy: 0.4,  hz: 0.46, cy: 0.4, mass: 55, hp: 9999, grabbable: false, pushFactor: 0.65 },
+  cart:         { model: 'cart',             hx: 0.78, hy: 0.4,  hz: 0.46, cy: 0.4, mass: 55, hp: 9999, grabbable: false, pushFactor: 0.65, noTip: true },
   fuse:         { model: 'fuse_cell',        hx: 0.12, hy: 0.2,  hz: 0.12, mass: 2,  hp: 9999 },
   pipe:         { model: 'pipe_straight',    hx: 0.13, hy: 1.0,  hz: 0.13, mass: 10, hp: 9999 },
   locker:       { model: 'locker',           hx: 0.25, hy: 0.95, hz: 0.25, mass: 30, hp: 9999, grabbable: false },
@@ -43,6 +43,7 @@ export class Prop extends Entity {
     game.levelRoot.add(this.pivot);
     game.physics.props.push(this);
     game.props = game.physics.props;
+    if (P.noTip) this.body.angularFactor.set(0, 1, 0);
     this.body.addEventListener('collide', (e) => this._onCollide(e));
     this.hitCool = new Map();
     this.exploding = false;

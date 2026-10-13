@@ -203,6 +203,7 @@ export class Player {
     const f = p.pushFactor !== undefined ? p.pushFactor : 0.8;
     const spd = Math.min(5.5, Math.hypot(this.vel.x, this.vel.z) + 0.8) * f;
     p.body.wakeUp();
+    p.body.angularVelocity.set(0, p.body.angularVelocity.y * 0.5, 0);
     if (nx) p.body.velocity.x = nx * spd;
     if (nz) p.body.velocity.z = nz * spd;
   }

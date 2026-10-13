@@ -17,7 +17,7 @@ export function build(game, b) {
   // ------------------------------------------------------------ Room A: lab hall  x 0..16, z 0..20
   b.room(0, 0, 16, 20, H, {
     wall: white, floor: 'tile_floor', ceil: 'ceiling_panel',
-    sides: { w: { gaps: [{ at: 9, w: 2.2, h: 2.8 }] }, n: { gaps: [{ at: 8, w: 2.2, h: 2.8 }] }, e: { gaps: [{ at: 8, w: 2.8, h: 3.0 }, { at: 16.5, w: 1.8, h: 2.7 }] }, s: {} },
+    sides: { w: { gaps: [{ at: 9, w: 2.2, h: 2.8 }] }, n: { gaps: [{ at: 8, w: 2.2, h: 2.8 }] }, e: { gaps: [{ at: 8, w: 3.2, h: 3.0 }, { at: 16.5, w: 1.8, h: 2.7 }] }, s: {} },
   });
   // ------------------------------------------------------------ chamber  x 16.3..28, z 3..13
   b.room(16.3, 3, 28, 13, 6.2, {
@@ -89,7 +89,7 @@ export function build(game, b) {
   redBtn.setDisabled(true);
 
   // ---- doors
-  const chamberDoor = game.add(new Door(game, { x: 16.15, y: 0, z: 8, w: 2.8, h: 3.0, d: 0.3, axis: 'z', tex: 'metal_plate', locked: true }));
+  const chamberDoor = game.add(new Door(game, { x: 16.15, y: 0, z: 8, w: 3.2, h: 3.0, d: 0.3, axis: 'z', tex: 'metal_plate', locked: true }));
   const controlDoor = game.add(new Door(game, { x: 16.15, y: 0, z: 16.5, w: 1.8, h: 2.7, d: 0.3, axis: 'z', auto: true, tex: 'metal_plate' }));
   const exitDoor = game.add(new Door(game, { x: 8, y: 0, z: -0.15, w: 2.2, h: 2.8, d: 0.3, axis: 'x', locked: true, tex: 'metal_plate' }));
   const entryDoor = game.add(new Door(game, { x: -0.15, y: 0, z: 9, w: 2.2, h: 2.8, d: 0.3, axis: 'z', locked: true, tex: 'metal_plate' }));
@@ -100,7 +100,7 @@ export function build(game, b) {
   b.box(6.1, 0, -12.3, 9.9, 3.3, -12, 'hazard_stripes', { tile: 1 });
   b.lamp(8, 2.9, -5, { color: 0xffc8a0, intensity: 16, distance: 8, w: 1.2 });
   // ---- cart
-  const cart = game.add(new Prop(game, 'cart', 5.5, 0.02, 9.5, { rotY: 0.0 }));
+  const cart = game.add(new Prop(game, 'cart', 5.5, 0.02, 8.0, { rotY: 0.0 }));
   {
     const can = new THREE.Group();
     const gl = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.24, 0.55, 16), assets.material(null, { color: 0x9fe8ff, transparent: true, opacity: 0.3, roughness: 0.1 }));
@@ -134,7 +134,7 @@ export function build(game, b) {
   }
 
   const level = {
-    spawn: { x: 2.5, y: 0, z: 9, yaw: -Math.PI / 2 },
+    spawn: { x: 2.5, y: 0, z: 8, yaw: -Math.PI / 2 },
     music: null,
     update(dt) {
       core.rotation.y += dt * 0.6;
@@ -194,7 +194,7 @@ export function build(game, b) {
       // the Overseer, glimpsed in the chamber
       const ov = game.add(new NPC(game, 'overseer', 25.5, 0, 10.2, { yaw: Math.PI, vanish: true }));
       s.sayNoWait('varga_c4_4');
-      game.add(new Pickup(game, 'wrench', 12, 1.0, 18.5));
+      game.add(new Pickup(game, 'wrench', 12, 1.0, 18.5, { range: 2.1 }));
       await s.step('Grab the hydraulic wrench from the workbench', () => game.player.has.wrench, () => game.player.giveWeapon('wrench'));
       game.hud.toast('LEFT MOUSE: SWING THE WRENCH', 4);
       spawnCrawlers(4, [1, 2, 3, 5]);

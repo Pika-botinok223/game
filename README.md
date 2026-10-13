@@ -50,6 +50,7 @@ npm run build      # production bundle in dist/
 npm start          # run the Electron shell on dist/ (after npm run build)
 npm test           # headless Playwright smoke test (builds, loads the menu + all 4 chapters, saves screenshots)
 npm run test:play  # same, plus drives every chapter to the credits through completeObjective()
+npm run test:walk  # real key/mouse input: full chapter 1 walk-through + chapter 2/3/4 gate checks (doors, cart, grab, valves, lift)
 ```
 
 ## Get the macOS DMG

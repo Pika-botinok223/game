@@ -14,8 +14,9 @@
     "preview": "vite preview",
     "start": "electron .",
     "dist:mac": "vite build && electron-builder --mac dmg --x64 --publish never && electron-builder --mac dmg --arm64 --publish never",
-    "test": "node tests/smoke.mjs",
-    "test:play": "node tests/smoke.mjs --play"
+    "test": "node tests/smoke.mjs && node tests/tram_exit.mjs",
+    "test:play": "node tests/smoke.mjs --play",
+    "test:walk": "node tests/tram_exit.mjs --full && node tests/gates.mjs"
   },
   "dependencies": {
     "cannon-es": "^0.20.0",

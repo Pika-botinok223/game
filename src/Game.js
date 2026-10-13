@@ -401,7 +401,7 @@ export class Game {
     this.dt = dt;
     try {
       if ((this.state === 'playing' || this.state === 'dead') && !this.frozenDebug) {
-        if (this.testMode) { for (let i = 0; i < this.ups; i++) { this.dt = this.dtStep; this._updateWorld(this.dtStep); if (this.state !== 'playing' && this.state !== 'dead') break; } }
+        if (this.testMode) { for (let i = 0; i < this.ups; i++) { this.dt = this.dtStep; this._updateWorld(this.dtStep); this.input.endFrame(); if (this.state !== 'playing' && this.state !== 'dead') break; } }
         else this._updateWorld(dt);
       }
       else if (this.state === 'menu') this._updateMenu(dt);

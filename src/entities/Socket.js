@@ -27,7 +27,7 @@ export class Socket extends Entity {
     for (const p of this.game.physics.props) {
       if (p.type !== 'fuse' || !p.alive) continue;
       const d = p.body.position.distanceTo(this.snap);
-      if (d < 0.55) { this.fill(p); break; }
+      if (d < 0.95) { this.fill(p); break; }
     }
   }
   fill(prop) {
