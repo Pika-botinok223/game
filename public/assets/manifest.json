@@ -1,0 +1,1021 @@
+{
+  "_comment": "Ave Maria asset manifest. Model scale is 1.0 = metres (baked). See CREDITS.md.",
+  "textures": {
+    "concrete_wall": {
+      "path": "textures/concrete_wall.jpg",
+      "repeat": 2,
+      "title": "Formwork concrete wall",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project"
+    },
+    "concrete_wall_normal": {
+      "path": "textures/concrete_wall_normal.png",
+      "repeat": 2,
+      "title": "Formwork concrete wall (normal map, OpenGL +Y)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project"
+    },
+    "concrete_floor": {
+      "path": "textures/concrete_floor.jpg",
+      "repeat": 4,
+      "title": "Cracked concrete slab floor",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project"
+    },
+    "concrete_floor_normal": {
+      "path": "textures/concrete_floor_normal.png",
+      "repeat": 4,
+      "title": "Cracked concrete slab floor (normal map, OpenGL +Y)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project"
+    },
+    "metal_floor": {
+      "path": "textures/metal_floor.jpg",
+      "repeat": 4,
+      "title": "Diamond-plate steel floor",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project"
+    },
+    "metal_floor_normal": {
+      "path": "textures/metal_floor_normal.png",
+      "repeat": 4,
+      "title": "Diamond-plate steel floor (normal map, OpenGL +Y)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project"
+    },
+    "metal_wall": {
+      "path": "textures/metal_wall.jpg",
+      "repeat": 2,
+      "title": "Riveted metal wall panels",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project"
+    },
+    "metal_wall_normal": {
+      "path": "textures/metal_wall_normal.png",
+      "repeat": 2,
+      "title": "Riveted metal wall panels (normal map, OpenGL +Y)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project"
+    },
+    "metal_plate": {
+      "path": "textures/metal_plate.jpg",
+      "repeat": 1,
+      "title": "Bolted gunmetal plate",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project"
+    },
+    "metal_plate_normal": {
+      "path": "textures/metal_plate_normal.png",
+      "repeat": 1,
+      "title": "Bolted gunmetal plate (normal map, OpenGL +Y)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project"
+    },
+    "tile_white": {
+      "path": "textures/tile_white.jpg",
+      "repeat": 2,
+      "title": "White lab tile",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project"
+    },
+    "tile_white_normal": {
+      "path": "textures/tile_white_normal.png",
+      "repeat": 2,
+      "title": "White lab tile (normal map, OpenGL +Y)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project"
+    },
+    "tile_floor": {
+      "path": "textures/tile_floor.jpg",
+      "repeat": 4,
+      "title": "Speckled dark floor tile",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project"
+    },
+    "tile_floor_normal": {
+      "path": "textures/tile_floor_normal.png",
+      "repeat": 4,
+      "title": "Speckled dark floor tile (normal map, OpenGL +Y)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project"
+    },
+    "hazard_stripes": {
+      "path": "textures/hazard_stripes.jpg",
+      "repeat": 2,
+      "title": "Hazard stripes (worn)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project"
+    },
+    "ceiling_panel": {
+      "path": "textures/ceiling_panel.jpg",
+      "repeat": 4,
+      "title": "Perforated ceiling tile",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project"
+    },
+    "ceiling_panel_normal": {
+      "path": "textures/ceiling_panel_normal.png",
+      "repeat": 4,
+      "title": "Perforated ceiling tile (normal map, OpenGL +Y)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project"
+    },
+    "rust_metal": {
+      "path": "textures/rust_metal.jpg",
+      "repeat": 2,
+      "title": "Rusted painted metal",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project"
+    },
+    "rust_metal_normal": {
+      "path": "textures/rust_metal_normal.png",
+      "repeat": 2,
+      "title": "Rusted painted metal (normal map, OpenGL +Y)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project"
+    },
+    "asphalt": {
+      "path": "textures/asphalt.jpg",
+      "repeat": 8,
+      "title": "Asphalt",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project"
+    },
+    "asphalt_normal": {
+      "path": "textures/asphalt_normal.png",
+      "repeat": 8,
+      "title": "Asphalt (normal map, OpenGL +Y)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project"
+    },
+    "sand_ground": {
+      "path": "textures/sand_ground.jpg",
+      "repeat": 8,
+      "title": "Desert sand",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project"
+    },
+    "sand_ground_normal": {
+      "path": "textures/sand_ground_normal.png",
+      "repeat": 8,
+      "title": "Desert sand (normal map, OpenGL +Y)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project"
+    },
+    "cell_flesh": {
+      "path": "textures/cell_flesh.jpg",
+      "repeat": 2,
+      "title": "Cell organism flesh (bioluminescent)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project"
+    },
+    "cell_flesh_normal": {
+      "path": "textures/cell_flesh_normal.png",
+      "repeat": 2,
+      "title": "Cell organism flesh (bioluminescent) (normal map, OpenGL +Y)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project"
+    },
+    "crate_wood": {
+      "path": "textures/crate_wood.jpg",
+      "repeat": 1,
+      "title": "Wooden crate face",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project"
+    },
+    "crate_wood_normal": {
+      "path": "textures/crate_wood_normal.png",
+      "repeat": 1,
+      "title": "Wooden crate face (normal map, OpenGL +Y)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project"
+    },
+    "crate_metal": {
+      "path": "textures/crate_metal.jpg",
+      "repeat": 1,
+      "title": "Military metal crate face",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project"
+    },
+    "crate_metal_normal": {
+      "path": "textures/crate_metal_normal.png",
+      "repeat": 1,
+      "title": "Military metal crate face (normal map, OpenGL +Y)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project"
+    },
+    "glass_dirty": {
+      "path": "textures/glass_dirty.png",
+      "repeat": 1,
+      "title": "Dirty glass (RGBA)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "transparent": true
+    },
+    "sky_night": {
+      "path": "textures/sky_night.jpg",
+      "repeat": 1,
+      "title": "Night sky with stars (equirect)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "mapping": "equirectangular"
+    },
+    "logo_avemaria": {
+      "path": "textures/logo_avemaria.png",
+      "repeat": 1,
+      "title": "Ave Maria program logo",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project"
+    }
+  },
+  "models": {
+    "crate": {
+      "path": "models/crate.glb",
+      "scale": 1.0,
+      "title": "Crate (Platformer Kit)",
+      "author": "Kenney (www.kenney.nl)",
+      "license": "CC0 1.0",
+      "source": "https://kenney.nl/assets/platformer-kit",
+      "size": "1x1x1 m",
+      "origin": "bottom-center",
+      "note": "wooden crate, recoloured materials unchanged; scaled x2 and re-origined"
+    },
+    "barrel": {
+      "path": "models/barrel.glb",
+      "scale": 1.0,
+      "title": "Barrel (Space Kit, recoloured steel)",
+      "author": "Kenney (www.kenney.nl)",
+      "license": "CC0 1.0",
+      "source": "https://kenney.nl/assets/space-kit",
+      "size": "0.76x0.95x0.66 m",
+      "origin": "bottom-center",
+      "note": "hexagonal barrel; recoloured by Ave Maria project"
+    },
+    "barrel_explosive": {
+      "path": "models/barrel_explosive.glb",
+      "scale": 1.0,
+      "title": "Explosive barrel (Space Kit barrel, recoloured red/yellow)",
+      "author": "Kenney (www.kenney.nl)",
+      "license": "CC0 1.0",
+      "source": "https://kenney.nl/assets/space-kit",
+      "size": "0.76x0.95x0.66 m",
+      "origin": "bottom-center",
+      "note": "recoloured by Ave Maria project"
+    },
+    "computer_console": {
+      "path": "models/computer_console.glb",
+      "scale": 1.0,
+      "title": "Computer console (Space Kit, recoloured)",
+      "author": "Kenney (www.kenney.nl)",
+      "license": "CC0 1.0",
+      "source": "https://kenney.nl/assets/space-kit",
+      "size": "0.91x1.3x0.45 m",
+      "origin": "bottom-center",
+      "note": "screen faces +Z? (screen tilts toward +Z side); emissive teal screen"
+    },
+    "chair": {
+      "path": "models/chair.glb",
+      "scale": 1.0,
+      "title": "Office chair (Furniture Kit)",
+      "author": "Kenney (www.kenney.nl)",
+      "license": "CC0 1.0",
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "size": "0.52x0.95x0.49 m",
+      "origin": "bottom-center"
+    },
+    "desk": {
+      "path": "models/desk.glb",
+      "scale": 1.0,
+      "title": "Desk (Furniture Kit)",
+      "author": "Kenney (www.kenney.nl)",
+      "license": "CC0 1.0",
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "size": "1.6x0.84x0.85 m",
+      "origin": "bottom-center"
+    },
+    "pipe_straight": {
+      "path": "models/pipe_straight.glb",
+      "scale": 1.0,
+      "title": "Straight pipe (Space Kit)",
+      "author": "Kenney (www.kenney.nl)",
+      "license": "CC0 1.0",
+      "source": "https://kenney.nl/assets/space-kit",
+      "size": "0.59x0.59x3 m",
+      "origin": "bottom-center",
+      "note": "long axis is Z, lies on the ground; rotate to stand upright"
+    },
+    "manipulator": {
+      "path": "models/manipulator.glb",
+      "scale": 1.0,
+      "title": "Blaster repeater (used as M-7 Field Manipulator)",
+      "author": "Kenney (www.kenney.nl)",
+      "license": "CC0 1.0",
+      "source": "https://github.com/KenneyNL/Starter-Kit-FPS",
+      "size": "0.21x0.23x0.5 m",
+      "origin": "center",
+      "note": "muzzle points to -Z (Three.js camera forward); white low-poly, tint materials in code if desired"
+    },
+    "wrench": {
+      "path": "models/wrench.glb",
+      "scale": 1.0,
+      "title": "Hydraulic wrench",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "size": "0.1x0.05x0.69 m",
+      "origin": "center",
+      "note": "long axis Z, jaw head at -Z (points forward as a view-model)"
+    },
+    "valve_wheel": {
+      "path": "models/valve_wheel.glb",
+      "scale": 1.0,
+      "title": "Valve wheel",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "size": "0.4x0.4x0.12 m",
+      "origin": "bottom-center",
+      "note": "wheel plane is XY (axis along Z); rotate around Z to turn"
+    },
+    "fuse_cell": {
+      "path": "models/fuse_cell.glb",
+      "scale": 1.0,
+      "title": "Fuse cell",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "size": "0.12x0.31x0.12 m",
+      "origin": "bottom-center",
+      "note": "emissive cyan glass tube"
+    },
+    "medkit": {
+      "path": "models/medkit.glb",
+      "scale": 1.0,
+      "title": "Medkit",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "size": "0.36x0.25x0.13 m",
+      "origin": "bottom-center"
+    },
+    "battery": {
+      "path": "models/battery.glb",
+      "scale": 1.0,
+      "title": "Suit battery",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "size": "0.14x0.24x0.14 m",
+      "origin": "bottom-center",
+      "note": "emissive amber band"
+    },
+    "cart": {
+      "path": "models/cart.glb",
+      "scale": 1.0,
+      "title": "Industrial cart",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "size": "1.22x0.96x0.86 m",
+      "origin": "bottom-center",
+      "note": "push handle at -X end"
+    },
+    "locker": {
+      "path": "models/locker.glb",
+      "scale": 1.0,
+      "title": "Locker",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "size": "0.5x1.9x0.55 m",
+      "origin": "bottom-center",
+      "note": "door faces +Z"
+    },
+    "tram": {
+      "path": "models/tram.glb",
+      "scale": 1.0,
+      "title": "Monorail tram",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "size": "2.66x3.1x7.71 m",
+      "origin": "bottom-center",
+      "note": "long axis Z; either end can be the front"
+    },
+    "rocket_booster": {
+      "path": "models/rocket_booster.glb",
+      "scale": 1.0,
+      "title": "Gabriel RLV booster",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "size": "6.65x25.9x6.65 m (incl. landing legs)",
+      "origin": "bottom-center",
+      "note": "body radius 1.8 m, nose +Y, legs/grid fins included"
+    },
+    "spaceship_dx90": {
+      "path": "models/spaceship_dx90.glb",
+      "scale": 1.0,
+      "title": "DX-90 vessel",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "size": "5.4x11x5.4 m",
+      "origin": "bottom-center",
+      "note": "nose +Y; amber HALO ring is a separate mesh named halo"
+    },
+    "crawler": {
+      "path": "models/crawler.glb",
+      "scale": 1.0,
+      "title": "Cell crawler (spider-like creature)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "size": "1.0x0.54x0.84 m",
+      "origin": "bottom-center",
+      "note": "static mesh (no animation); head/eyes face +Z; node names: body, head, abd, eye, leg, leg2, knee, fang"
+    },
+    "spitter": {
+      "path": "models/spitter.glb",
+      "scale": 1.0,
+      "title": "Cell spitter (tripod sac creature)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "size": "1.06x1.25x1.2 m",
+      "origin": "bottom-center",
+      "note": "static mesh (no animation); mouth faces +Z"
+    },
+    "npc_scientist": {
+      "path": "models/npc_scientist.glb",
+      "scale": 1.0,
+      "title": "Animated character, white coat skin (Dr. Varga)",
+      "author": "Kenney (www.kenney.nl)",
+      "license": "CC0 1.0",
+      "source": "https://kenney.nl/assets/animated-characters-2",
+      "height": "1.8 m",
+      "origin": "feet",
+      "animations": [
+        "Idle",
+        "Run",
+        "Jump"
+      ],
+      "skinned": true,
+      "note": "Kenney Animated Characters 2 (skin criminalMaleA); rig has 'Idle','Run','Jump' clips only; character faces +Z; use Run at low timeScale for walking"
+    },
+    "npc_guard": {
+      "path": "models/npc_guard.glb",
+      "scale": 1.0,
+      "title": "Animated character, security skin (Brooks)",
+      "author": "Kenney (www.kenney.nl)",
+      "license": "CC0 1.0",
+      "source": "https://kenney.nl/assets/animated-characters-1",
+      "height": "1.8 m",
+      "origin": "feet",
+      "animations": [
+        "Idle",
+        "Run",
+        "Jump"
+      ],
+      "skinned": true,
+      "note": "Kenney Animated Characters 1 (skin survivorMaleB, recoloured navy by Ave Maria project); clips 'Idle','Run','Jump'"
+    },
+    "npc_overseer": {
+      "path": "models/npc_overseer.glb",
+      "scale": 1.0,
+      "title": "Animated character, grey suit skin (Overseer)",
+      "author": "Kenney (www.kenney.nl)",
+      "license": "CC0 1.0",
+      "source": "https://kenney.nl/assets/animated-characters-2",
+      "height": "1.8 m",
+      "origin": "feet",
+      "animations": [
+        "Idle",
+        "Run",
+        "Jump"
+      ],
+      "skinned": true,
+      "note": "Kenney Animated Characters 2 (skin criminalMaleA, recoloured to charcoal suit by Ave Maria project); clips 'Idle','Run','Jump'"
+    }
+  },
+  "sfx": {
+    "footstep_concrete_1": {
+      "path": "sfx/footstep_concrete_1.ogg",
+      "title": "Footstep concrete 1",
+      "author": "Kenney (www.kenney.nl)",
+      "license": "CC0 1.0",
+      "source": "https://kenney.nl/assets/impact-sounds",
+      "duration": 0.11
+    },
+    "footstep_metal_1": {
+      "path": "sfx/footstep_metal_1.ogg",
+      "title": "Footstep metal 1 (impactPlate_light, trimmed)",
+      "author": "Kenney (www.kenney.nl)",
+      "license": "CC0 1.0",
+      "source": "https://kenney.nl/assets/impact-sounds",
+      "duration": 0.34
+    },
+    "footstep_concrete_2": {
+      "path": "sfx/footstep_concrete_2.ogg",
+      "title": "Footstep concrete 2",
+      "author": "Kenney (www.kenney.nl)",
+      "license": "CC0 1.0",
+      "source": "https://kenney.nl/assets/impact-sounds",
+      "duration": 0.11
+    },
+    "footstep_metal_2": {
+      "path": "sfx/footstep_metal_2.ogg",
+      "title": "Footstep metal 2 (impactPlate_light, trimmed)",
+      "author": "Kenney (www.kenney.nl)",
+      "license": "CC0 1.0",
+      "source": "https://kenney.nl/assets/impact-sounds",
+      "duration": 0.34
+    },
+    "footstep_concrete_3": {
+      "path": "sfx/footstep_concrete_3.ogg",
+      "title": "Footstep concrete 3",
+      "author": "Kenney (www.kenney.nl)",
+      "license": "CC0 1.0",
+      "source": "https://kenney.nl/assets/impact-sounds",
+      "duration": 0.11
+    },
+    "footstep_metal_3": {
+      "path": "sfx/footstep_metal_3.ogg",
+      "title": "Footstep metal 3 (impactPlate_light, trimmed)",
+      "author": "Kenney (www.kenney.nl)",
+      "license": "CC0 1.0",
+      "source": "https://kenney.nl/assets/impact-sounds",
+      "duration": 0.34
+    },
+    "footstep_concrete_4": {
+      "path": "sfx/footstep_concrete_4.ogg",
+      "title": "Footstep concrete 4",
+      "author": "Kenney (www.kenney.nl)",
+      "license": "CC0 1.0",
+      "source": "https://kenney.nl/assets/impact-sounds",
+      "duration": 0.11
+    },
+    "footstep_metal_4": {
+      "path": "sfx/footstep_metal_4.ogg",
+      "title": "Footstep metal 4 (impactPlate_light, trimmed)",
+      "author": "Kenney (www.kenney.nl)",
+      "license": "CC0 1.0",
+      "source": "https://kenney.nl/assets/impact-sounds",
+      "duration": 0.34
+    },
+    "jump_land": {
+      "path": "sfx/jump_land.ogg",
+      "title": "Jump land (impactSoft_heavy_000)",
+      "author": "Kenney (www.kenney.nl)",
+      "license": "CC0 1.0",
+      "source": "https://kenney.nl/assets/impact-sounds",
+      "duration": 0.51
+    },
+    "wrench_hit_flesh": {
+      "path": "sfx/wrench_hit_flesh.ogg",
+      "title": "Wrench hit flesh (impactPunch_heavy_001)",
+      "author": "Kenney (www.kenney.nl)",
+      "license": "CC0 1.0",
+      "source": "https://kenney.nl/assets/impact-sounds",
+      "duration": 0.54
+    },
+    "wrench_hit_metal": {
+      "path": "sfx/wrench_hit_metal.ogg",
+      "title": "Wrench hit metal (impactMetal_heavy_001)",
+      "author": "Kenney (www.kenney.nl)",
+      "license": "CC0 1.0",
+      "source": "https://kenney.nl/assets/impact-sounds",
+      "duration": 0.36
+    },
+    "metal_impact_1": {
+      "path": "sfx/metal_impact_1.ogg",
+      "title": "Metal impact 1 (impactMetal_medium_000)",
+      "author": "Kenney (www.kenney.nl)",
+      "license": "CC0 1.0",
+      "source": "https://kenney.nl/assets/impact-sounds",
+      "duration": 0.27
+    },
+    "metal_impact_2": {
+      "path": "sfx/metal_impact_2.ogg",
+      "title": "Metal impact 2 (impactMetal_heavy_003)",
+      "author": "Kenney (www.kenney.nl)",
+      "license": "CC0 1.0",
+      "source": "https://kenney.nl/assets/impact-sounds",
+      "duration": 0.21
+    },
+    "metal_impact_3": {
+      "path": "sfx/metal_impact_3.ogg",
+      "title": "Metal impact 3 (impactMetal_light_000)",
+      "author": "Kenney (www.kenney.nl)",
+      "license": "CC0 1.0",
+      "source": "https://kenney.nl/assets/impact-sounds",
+      "duration": 0.35
+    },
+    "glass_break": {
+      "path": "sfx/glass_break.ogg",
+      "title": "Glass break (impactGlass_heavy_001)",
+      "author": "Kenney (www.kenney.nl)",
+      "license": "CC0 1.0",
+      "source": "https://kenney.nl/assets/impact-sounds",
+      "duration": 0.43
+    },
+    "button_press": {
+      "path": "sfx/button_press.ogg",
+      "title": "Button press (switch2)",
+      "author": "Kenney (www.kenney.nl)",
+      "license": "CC0 1.0",
+      "source": "https://kenney.nl/assets/ui-audio",
+      "duration": 0.3
+    },
+    "button_denied": {
+      "path": "sfx/button_denied.ogg",
+      "title": "Button denied (error_005)",
+      "author": "Kenney (www.kenney.nl)",
+      "license": "CC0 1.0",
+      "source": "https://kenney.nl/assets/interface-sounds",
+      "duration": 0.5
+    },
+    "ui_hover": {
+      "path": "sfx/ui_hover.ogg",
+      "title": "UI hover (rollover1)",
+      "author": "Kenney (www.kenney.nl)",
+      "license": "CC0 1.0",
+      "source": "https://kenney.nl/assets/ui-audio",
+      "duration": 0.23
+    },
+    "ui_click": {
+      "path": "sfx/ui_click.ogg",
+      "title": "UI click (click1)",
+      "author": "Kenney (www.kenney.nl)",
+      "license": "CC0 1.0",
+      "source": "https://kenney.nl/assets/ui-audio",
+      "duration": 0.09
+    },
+    "wrench_swing": {
+      "path": "sfx/wrench_swing.ogg",
+      "title": "Wrench swing whoosh",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 0.38
+    },
+    "manipulator_punt": {
+      "path": "sfx/manipulator_punt.ogg",
+      "title": "Manipulator punt blast",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 1.25
+    },
+    "manipulator_grab": {
+      "path": "sfx/manipulator_grab.ogg",
+      "title": "Manipulator grab whine",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 0.7
+    },
+    "manipulator_drop": {
+      "path": "sfx/manipulator_drop.ogg",
+      "title": "Manipulator drop",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 0.5
+    },
+    "manipulator_dryfire": {
+      "path": "sfx/manipulator_dryfire.ogg",
+      "title": "Manipulator dry fire click",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 0.22
+    },
+    "door_open": {
+      "path": "sfx/door_open.ogg",
+      "title": "Sci-fi door open",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 1.1
+    },
+    "door_close": {
+      "path": "sfx/door_close.ogg",
+      "title": "Sci-fi door close",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 1.0
+    },
+    "alarm_loop": {
+      "path": "sfx/alarm_loop.ogg",
+      "title": "Alarm two-tone (loop)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 3.2,
+      "loop": true
+    },
+    "explosion_1": {
+      "path": "sfx/explosion_1.ogg",
+      "title": "Explosion 1",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 2.6
+    },
+    "explosion_2": {
+      "path": "sfx/explosion_2.ogg",
+      "title": "Explosion 2",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 3.2
+    },
+    "crawler_idle": {
+      "path": "sfx/crawler_idle.ogg",
+      "title": "Crawler idle chitter",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 1.3
+    },
+    "crawler_attack": {
+      "path": "sfx/crawler_attack.ogg",
+      "title": "Crawler attack screech",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 0.55
+    },
+    "crawler_die": {
+      "path": "sfx/crawler_die.ogg",
+      "title": "Crawler death",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 0.95
+    },
+    "spitter_spit": {
+      "path": "sfx/spitter_spit.ogg",
+      "title": "Spitter spit",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 0.7
+    },
+    "spitter_die": {
+      "path": "sfx/spitter_die.ogg",
+      "title": "Spitter death",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 1.3
+    },
+    "acid_hit": {
+      "path": "sfx/acid_hit.ogg",
+      "title": "Acid hit sizzle",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 1.3
+    },
+    "player_hurt_1": {
+      "path": "sfx/player_hurt_1.ogg",
+      "title": "Player hurt 1",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 0.42
+    },
+    "player_hurt_2": {
+      "path": "sfx/player_hurt_2.ogg",
+      "title": "Player hurt 2",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 0.42
+    },
+    "player_hurt_3": {
+      "path": "sfx/player_hurt_3.ogg",
+      "title": "Player hurt 3",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 0.42
+    },
+    "suit_beep": {
+      "path": "sfx/suit_beep.ogg",
+      "title": "HEV-style suit chime",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 0.71
+    },
+    "suit_charge_loop": {
+      "path": "sfx/suit_charge_loop.ogg",
+      "title": "Suit charger hum (loop)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 2.0,
+      "loop": true
+    },
+    "health_charge_loop": {
+      "path": "sfx/health_charge_loop.ogg",
+      "title": "Health charger hum (loop)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 2.0,
+      "loop": true
+    },
+    "pickup_item": {
+      "path": "sfx/pickup_item.ogg",
+      "title": "Item pickup",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 1.0
+    },
+    "valve_turn": {
+      "path": "sfx/valve_turn.ogg",
+      "title": "Valve turn ratchet",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 1.15
+    },
+    "tram_loop": {
+      "path": "sfx/tram_loop.ogg",
+      "title": "Tram rolling (loop)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 4.0,
+      "loop": true
+    },
+    "tram_brake": {
+      "path": "sfx/tram_brake.ogg",
+      "title": "Tram brake squeal",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 3.0
+    },
+    "elevator_loop": {
+      "path": "sfx/elevator_loop.ogg",
+      "title": "Elevator motor (loop)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 3.0,
+      "loop": true
+    },
+    "rumble_loop": {
+      "path": "sfx/rumble_loop.ogg",
+      "title": "Deep rumble (loop)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 6.0,
+      "loop": true
+    },
+    "rocket_launch_loop": {
+      "path": "sfx/rocket_launch_loop.ogg",
+      "title": "Rocket launch roar (loop)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 6.0,
+      "loop": true
+    },
+    "stage_separation": {
+      "path": "sfx/stage_separation.ogg",
+      "title": "Stage separation bang",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 2.6
+    },
+    "pa_chime": {
+      "path": "sfx/pa_chime.ogg",
+      "title": "PA ding-dong chime",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 2.5
+    },
+    "fluorescent_hum_loop": {
+      "path": "sfx/fluorescent_hum_loop.ogg",
+      "title": "Fluorescent hum (loop)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 2.0,
+      "loop": true
+    },
+    "spark_1": {
+      "path": "sfx/spark_1.ogg",
+      "title": "Electric spark",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 0.5
+    }
+  },
+  "music": {
+    "menu_theme": {
+      "path": "music/menu_theme.ogg",
+      "title": "Menu theme (atmospheric synth)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 96.0,
+      "loop": true,
+      "note": "seamless loop (reverb tail folded onto the start)"
+    },
+    "inbound_ambient": {
+      "path": "music/inbound_ambient.ogg",
+      "title": "Inbound ambient",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 100.0,
+      "loop": true,
+      "note": "seamless loop (reverb tail folded onto the start)"
+    },
+    "breach_action": {
+      "path": "music/breach_action.ogg",
+      "title": "Breach action (tense percussive)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 61.71,
+      "loop": true,
+      "note": "seamless loop (reverb tail folded onto the start)"
+    },
+    "combat_loop": {
+      "path": "music/combat_loop.ogg",
+      "title": "Combat loop (driving)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 63.16,
+      "loop": true,
+      "note": "seamless loop (reverb tail folded onto the start)"
+    },
+    "pad39_finale": {
+      "path": "music/pad39_finale.ogg",
+      "title": "Pad 39 finale (epic)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 96.0,
+      "loop": true,
+      "note": "seamless loop (reverb tail folded onto the start)"
+    },
+    "credits_theme": {
+      "path": "music/credits_theme.ogg",
+      "title": "Credits theme (reflective)",
+      "author": "Ave Maria project",
+      "license": "CC0 (generated for Ave Maria)",
+      "source": "generated procedurally (Python/numpy/Pillow/trimesh) for this project",
+      "duration": 82.11,
+      "loop": true,
+      "note": "seamless loop (reverb tail folded onto the start)"
+    }
+  }
+}
