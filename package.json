@@ -13,7 +13,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "start": "electron .",
-    "dist:mac": "vite build && electron-builder --mac dmg --x64 --arm64 --publish never",
+    "dist:mac": "vite build && electron-builder --mac dmg --x64 --publish never && electron-builder --mac dmg --arm64 --publish never",
     "test": "node tests/smoke.mjs",
     "test:play": "node tests/smoke.mjs --play"
   },
