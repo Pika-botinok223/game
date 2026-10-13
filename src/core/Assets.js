@@ -13,6 +13,9 @@ const NO_ASSETS = params.has('noassets');
 const NO_GLB = params.has('noglb') || NO_ASSETS;
 
 // Models that are always built procedurally (animated / bespoke rigs / viewmodels).
+// Kenney's pastel props are tinted darker/dirtier to sit in the grimy Valve palette.
+const GLB_TINT = { crate: 0x8a7866, chair: 0x555a60, desk: 0x707880, computer_console: 0x8a9098, medkit: 0xdddddd, cart: 0x888d92 };
+
 const ALWAYS_PROC = new Set(['rocket_booster', 'spaceship_dx90', 'tram', 'manipulator']);
 
 function xhr(url, type) {
@@ -190,6 +193,16 @@ class AssetsClass {
       const bb2 = new THREE.Box3().setFromObject(obj);
       const c = bb2.getCenter(new THREE.Vector3());
       obj.position.set(-c.x, -bb2.min.y, -c.z);
+      const tint = GLB_TINT[key];
+      if (tint !== undefined) {
+        obj.traverse((n) => {
+          if (n.isMesh && n.material) {
+            const mats = Array.isArray(n.material) ? n.material : [n.material];
+            const out = mats.map((m) => { const c = m.clone(); if (c.color) c.color.multiply(new THREE.Color(tint)); if (c.roughness !== undefined) c.roughness = Math.max(c.roughness, 0.7); return c; });
+            n.material = Array.isArray(n.material) ? out : out[0];
+          }
+        });
+      }
       wrapper.userData.clips = g.animations;
       wrapper.userData.glb = true;
       wrapper.userData.size = ts;

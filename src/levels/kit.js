@@ -85,7 +85,8 @@ export class Vent extends Entity {
     super(game);
     this.pos = new THREE.Vector3(x, y, z);
     this.group = new THREE.Group(); this.group.position.set(x, y + 0.02, z);
-    this.hole = new THREE.Mesh(new THREE.CylinderGeometry(size * 0.55, size * 0.6, 0.04, 14), assets.material('cell_flesh', { emissive: 0x33ff66, emissiveIntensity: 0.35, color: 0xcc7799 }));
+    this.hole = new THREE.Mesh(new THREE.CylinderGeometry(size * 0.55, size * 0.6, 0.04, 14), assets.material(null, { color: 0x050505, roughness: 1 }));
+    this.holeOpen = assets.material('cell_flesh', { emissive: 0x33ff66, emissiveIntensity: 0.5, color: 0xcc7799 });
     this.grate = new THREE.Mesh(new THREE.BoxGeometry(size, 0.05, size), assets.material('gen_grate', { transparent: true, side: THREE.DoubleSide }));
     this.grate.position.y = 0.04;
     this.group.add(this.hole, this.grate);
@@ -96,6 +97,7 @@ export class Vent extends Entity {
   open() {
     if (this.burst) return;
     this.burst = true;
+    this.hole.material = this.holeOpen;
     this.vel.set((Math.random() - 0.5) * 2, 7, (Math.random() - 0.5) * 2);
     this.spin.set(Math.random() * 6, Math.random() * 6, Math.random() * 6);
     this.game.audio.playAt('metal_impact_2', this.pos, 1);

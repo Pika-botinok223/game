@@ -4,6 +4,7 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
+import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import { Settings } from '../core/Settings.js';
 
 const FxShader = {
@@ -49,10 +50,16 @@ export class Renderer {
     this.camera.rotation.order = 'YXZ';
     this.viewScene = new THREE.Scene();
     this.viewCamera = new THREE.PerspectiveCamera(55, 16 / 9, 0.01, 20);
-    const vl = new THREE.HemisphereLight(0xffffff, 0x445566, 1.4);
-    const vd = new THREE.DirectionalLight(0xfff2dd, 1.8); vd.position.set(0.5, 1, 0.8);
+    const vl = new THREE.HemisphereLight(0xffffff, 0x445566, 0.9);
+    const vd = new THREE.DirectionalLight(0xfff2dd, 1.2); vd.position.set(0.5, 1, 0.8);
     this.viewScene.add(vl, vd);
     this.scene = new THREE.Scene();
+    try {
+      const pm = new THREE.PMREMGenerator(this.gl);
+      this.envTex = pm.fromScene(new RoomEnvironment(), 0.04).texture;
+      this.scene.environment = this.envTex;
+      pm.dispose();
+    } catch (e) { /* no env map: metals just look darker */ }
     this.fx = FxShader.uniforms;
     this.effectsOn = Settings.get('effects');
     this.renderViewmodel = false;
@@ -99,7 +106,7 @@ export class Renderer {
   render(time) {
     this.fx.uTime.value = (time % 100);
     this.fx.uVignette.value = this.effectsOn ? 0.32 : 0.0;
-    this.fx.uGrain.value = this.effectsOn ? 0.04 : 0.0;
+    this.fx.uGrain.value = this.effectsOn ? 0.022 : 0.0;
     if (this.effectsOn) {
       this.viewPass.enabled = this.renderViewmodel;
       this.composer.render();

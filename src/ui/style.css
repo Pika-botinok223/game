@@ -90,7 +90,7 @@ html, body { margin: 0; height: 100%; background: #000; overflow: hidden; font-f
 /* ------------------------------------------------ menus */
 .screen { position: absolute; inset: 0; pointer-events: auto !important; display: flex; flex-direction: column; justify-content: center; }
 .screen * { pointer-events: auto; }
-.menu-main { padding-left: 8vw; background: linear-gradient(90deg, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.45) 40%, rgba(0, 0, 0, 0) 70%); }
+.menu-main { height: 100%; display: flex; flex-direction: column; justify-content: center; padding-left: 8vw; background: linear-gradient(90deg, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.45) 40%, rgba(0, 0, 0, 0) 70%); }
 .logo { font-size: clamp(54px, 9vw, 120px); font-weight: 200; letter-spacing: 0.18em; line-height: 0.95; margin-bottom: 8px; text-shadow: 0 0 30px rgba(255, 176, 0, 0.25); }
 .logo span { color: var(--amber); }
 .tagline { font-size: 14px; letter-spacing: 6px; opacity: 0.6; margin-bottom: 44px; text-transform: uppercase; }

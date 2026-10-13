@@ -151,15 +151,20 @@ export const PROC_MODELS = {
     return wrap;
   },
   manipulator(a) {
+    // muzzle points toward -Z, grip below, total length ~0.6 m
     const g = new THREE.Group();
-    const body = M(a, null, { color: 0xd9d9d6, metalness: 0.5, roughness: 0.35 });
-    const dark = M(a, null, { color: 0x20252a, metalness: 0.6, roughness: 0.4 });
-    const glow = M(a, null, { color: 0xffa31a, emissive: 0xff8800, emissiveIntensity: 1.6 });
-    const core = mesh(box(0.12, 0.14, 0.5), body, 0, 0, 0); g.add(core);
-    for (const s of [-1, 1]) { const prong = mesh(box(0.025, 0.05, 0.5), dark, 0.075 * s, 0.0, -0.3); g.add(prong); const gl = mesh(box(0.012, 0.012, 0.4), glow, 0.075 * s, 0.0, -0.3); g.add(gl); }
-    const orb = mesh(new THREE.SphereGeometry(0.045, 12, 12), glow, 0, 0, -0.2); orb.name = 'orb'; g.add(orb);
-    g.add(mesh(box(0.1, 0.18, 0.1), dark, 0, -0.14, 0.12));
-    g.add(mesh(cyl(0.05, 0.05, 0.3, 10), dark, 0, 0.0, 0.25).rotateX(Math.PI / 2));
+    const body = M(a, null, { color: 0xc4c9cd, metalness: 0.55, roughness: 0.4 });
+    const dark = M(a, null, { color: 0x1a1e22, metalness: 0.6, roughness: 0.4 });
+    const glow = M(a, null, { color: 0xff9a1a, emissive: 0xff7700, emissiveIntensity: 1.1 });
+    const hull = mesh(new THREE.CapsuleGeometry(0.06, 0.26, 6, 14), body, 0, 0, 0.02); hull.rotation.x = Math.PI / 2; g.add(hull);
+    const rear = mesh(cyl(0.05, 0.065, 0.2, 14), dark, 0, 0, 0.24); rear.rotation.x = Math.PI / 2; g.add(rear);
+    g.add(mesh(box(0.035, 0.022, 0.32), glow, 0, 0.062, -0.02));
+    g.add(mesh(box(0.07, 0.15, 0.075), dark, 0, -0.12, 0.1).rotateX(-0.25));
+    for (const s of [-1, 1]) {
+      const prong = mesh(box(0.022, 0.04, 0.3), dark, 0.065 * s, 0.0, -0.3); prong.rotation.y = -0.12 * s; g.add(prong);
+      const gl = mesh(box(0.01, 0.012, 0.26), glow, 0.058 * s, 0.0, -0.31); gl.rotation.y = -0.12 * s; g.add(gl);
+    }
+    const orb = mesh(new THREE.SphereGeometry(0.038, 14, 12), glow, 0, 0, -0.3); orb.name = 'orb'; g.add(orb);
     return g;
   },
   npc_scientist(a) { return human(a, { shirt: 0xf1f1ee, pants: 0x3a3f47, skin: 0xd7a785, hair: 0x2a1c14, coat: true, glasses: true, long: true }); },

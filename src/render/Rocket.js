@@ -156,21 +156,21 @@ export function createRocket() {
   // belly heat shield (black tiles) on the -X side
   const belly = new THREE.Mesh(new THREE.CylinderGeometry(R + 0.02, R + 0.02, 8.0, 32, 1, true, Math.PI * 0.55, Math.PI * 0.9), matTile);
   belly.position.y = 5.1; belly.rotation.y = 0; upper.add(belly);
-  // cockpit windows on the -X side (the cabin looks west)
+  // cockpit windows on the -X side (single-sided planes so they vanish when seen from inside the cabin)
   for (let i = 0; i < 3; i++) {
-    const w = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.7, 0.8), matGlass);
+    const w = new THREE.Mesh(new THREE.PlaneGeometry(0.8, 0.7), matGlass);
     const a = Math.PI + (i - 1) * 0.24;
-    w.position.set(Math.cos(a) * (R - 0.02), 6.7, Math.sin(a) * (R - 0.02));
-    w.rotation.y = -a;
+    w.position.set(Math.cos(a) * (R + 0.01), 3.2, Math.sin(a) * (R + 0.01));
+    w.rotation.y = Math.PI / 2 - a;   // plane normal (+Z) -> points outward along the radius
     upper.add(w);
   }
   // fillers above / below the hatch opening
-  for (const [y0, y1] of [[1.1, 5.2], [7.4, 9.1]]) {
+  for (const [y0, y1] of [[1.1, 1.7], [3.9, 9.1]]) {
     const f = new THREE.Mesh(new THREE.BoxGeometry(0.12, y1 - y0, 1.5), matWhiteD); f.position.set(R - 0.07, (y0 + y1) / 2, 0); upper.add(f);
   }
   // crew hatch (+X)
-  const hatch = new THREE.Mesh(new THREE.BoxGeometry(0.12, 2.2, 1.5), matDark); hatch.position.set(R - 0.02, 6.3, 0); upper.add(hatch);
-  const hatchLight = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.15, 0.15), new THREE.MeshBasicMaterial({ color: 0x66ff88 })); hatchLight.position.set(R + 0.02, 7.6, 0.9); upper.add(hatchLight);
+  const hatch = new THREE.Mesh(new THREE.BoxGeometry(0.12, 2.2, 1.5), matDark); hatch.position.set(R - 0.02, 2.8, 0); upper.add(hatch);
+  const hatchLight = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.15, 0.15), new THREE.MeshBasicMaterial({ color: 0x66ff88 })); hatchLight.position.set(R + 0.02, 4.1, 0.9); upper.add(hatchLight);
   // delta fins
   const finShape = new THREE.Shape();
   finShape.moveTo(0, 0); finShape.lineTo(3.4, -0.4); finShape.lineTo(3.0, 0.2); finShape.lineTo(0.6, 5.2); finShape.lineTo(0, 5.2); finShape.closePath();
@@ -192,7 +192,8 @@ export function createRocket() {
   const vac = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.95, 1.5, 18, 1, true), bellMat); vac.position.y = -0.25; upper.add(vac);
 
   // HALO array: petals hinged around the body, hanging down against the hull when stowed
-  const halo = new THREE.Group(); halo.position.y = 8.2; upper.add(halo);
+  const halo = new THREE.Group(); halo.position.y = 9.0; upper.add(halo);
+  const PL = 4.0;
   const petals = [];
   const petalMat = mat({ map: T.haloTex, roughness: 0.35, metalness: 0.7, emissive: 0x442200, emissiveIntensity: 0.4, side: THREE.DoubleSide });
   const N = 8;
@@ -202,13 +203,13 @@ export function createRocket() {
     hinge.position.set(Math.cos(a) * (R + 0.05), 0, Math.sin(a) * (R + 0.05));
     hinge.rotation.y = -a + Math.PI / 2;
     const arm = new THREE.Group();             // rotates about local X
-    const panel = new THREE.Mesh(new THREE.BoxGeometry(2.1, 5.2, 0.06), petalMat);
-    panel.position.y = -2.6;
+    const panel = new THREE.Mesh(new THREE.BoxGeometry(2.1, PL, 0.06), petalMat);
+    panel.position.y = -PL / 2;
     const ext = new THREE.Mesh(new THREE.BoxGeometry(1.7, 3.2, 0.05), petalMat);
-    ext.position.set(0, -6.7, 0); ext.name = 'ext'; ext.scale.y = 0.001; ext.visible = false;
+    ext.position.set(0, -PL - 1.6, 0); ext.name = 'ext'; ext.scale.y = 0.001; ext.visible = false;
     arm.add(panel, ext);
     const glow = new THREE.Mesh(new THREE.BoxGeometry(2.12, 0.08, 0.09), new THREE.MeshBasicMaterial({ color: 0xffd27a }));
-    glow.position.y = -5.2; arm.add(glow);
+    glow.position.y = -PL; arm.add(glow);
     hinge.add(arm); halo.add(hinge);
     petals.push({ arm, ext, glow });
   }
@@ -249,7 +250,7 @@ export function createRocket() {
         p.arm.rotation.x = open * 2.5 * 1.0;     // 0 .. ~143deg => lifts up into a dish shape
         const e = Math.max(0, (t - 0.6) / 0.4);
         p.ext.visible = e > 0.01; p.ext.scale.y = Math.max(0.001, e);
-        p.ext.position.y = -5.2 - 1.6 * e;
+        p.ext.position.y = -4.0 - 1.6 * e;
       }
       dish.visible = t > 0.2; dish.scale.setScalar(Math.max(0.001, Math.min(1, (t - 0.2) / 0.6)));
       beacon.visible = t > 0.8;

@@ -93,6 +93,7 @@ export class Prop extends Entity {
       if (g.time - last < 0.5) continue;
       this.hitCool.set(e, g.time);
       const dmg = Math.min(70, sp * 2.4 * Math.min(1.5, 0.5 + this.mass / 20));
+      if (this.explosive && this.thrownAt !== undefined && g.time - this.thrownAt < 5) { this.detonate(0); return; }
       e.takeDamage(dmg, { type: 'prop', from: b.position });
       g.audio.playAt('metal_impact_2', b.position, 0.8);
       b.velocity.x *= 0.55; b.velocity.z *= 0.55;

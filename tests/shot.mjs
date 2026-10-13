@@ -13,4 +13,4 @@ await page.waitForTimeout(parseInt(wait, 10));
 if (evalJs) { const r = await page.evaluate(evalJs); console.log('EVAL', JSON.stringify(r)); await page.waitForTimeout(1500); }
 await page.screenshot({ path: out });
 console.log(await page.evaluate(() => JSON.stringify({ state: window.__game && window.__game.state, err: window.__game && window.__game.lastError, boot: window.__bootError })));
-await browser.close(); srv.kill();
+await browser.close(); srv.kill(); try { process.kill(-srv.pid); } catch (e) {}

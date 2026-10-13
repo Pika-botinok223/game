@@ -62,7 +62,7 @@ export function buildCockpit(game, b, rocket) {
     seat.add(s1, s2, s3); seat.position.set(0.55, Y0 - baseY, z); grp.add(seat);
   }
   // cabin light (blue-white)
-  game.lights.add({ pos: new THREE.Vector3(0, Y0 + 2.0, 0), color: 0xbfd8ff, intensity: 14, distance: 5 });
+  game.lights.add({ pos: new THREE.Vector3(0, Y0 + 2.0, 0), color: 0xbfd8ff, intensity: 30, distance: 6 });
   const strip = new THREE.Mesh(new THREE.BoxGeometry(2.0, 0.04, 0.2), new THREE.MeshBasicMaterial({ color: new THREE.Color(0xbfd8ff).multiplyScalar(1.8) }));
   strip.position.set(0, Y1 - 0.03 - baseY, 0); grp.add(strip);
   // trigger button on the console's face
@@ -89,7 +89,8 @@ function spline(keys, t) {
 const ease = (t) => t * t * (3 - 2 * t);
 
 export async function runLaunch(s, game, rocket, ctx) {
-  const { stack, booster, upper } = rocket;
+  const { booster, upper } = rocket;
+  const stack = rocket.group;
   const cam = game.camera;
   const pl = game.player;
   const hud = game.hud;
@@ -111,7 +112,7 @@ export async function runLaunch(s, game, rocket, ctx) {
   let rumble = 0;
   const wq = new THREE.Quaternion(), wp = new THREE.Vector3();
   const flameLight = game.lights.add({ pos: new THREE.Vector3(0, MOUNT_TOP, 0), color: 0xff9a40, intensity: 0, distance: 120 });
-  let windowTarget = null, windowOffset = new THREE.Vector3(-2.7, 5.2, 0.4), autoFov = true;
+  let windowTarget = null, windowOffset = new THREE.Vector3(-3.0, 0.8, 0.0), autoFov = true;
   const tmp = new THREE.Vector3();
 
   game.camControl = (dt) => {
@@ -167,7 +168,6 @@ export async function runLaunch(s, game, rocket, ctx) {
   };
   for (let n = 10; n >= 1; n--) {
     dlg.announce('pa', `T-minus ${n}`, 1.0);
-    if (n === 10) dlg.synth && 0;
     if (n === 6) setRumble(0.25);
     if (n === 4) { setRumble(0.45); rocket.setUpperThrottle(0); }
     if (n === 3) { ignited = true; game.audio.play('stage_separation', { vol: 0.5, pitch: 0.5 }); if (loopRocket) loopRocket.setVolume(0.35, 1.0); }
@@ -253,6 +253,8 @@ export async function runLaunch(s, game, rocket, ctx) {
     // upper stage
     uv += 6 * dt; uy += uv * dt * 0.8;
     upper.position.y = UPPER_BASE + baseAlt + uy;
+    upper.position.x = -uy * 0.55;        // downrange, so the window cam looks back at the pad at an angle
+    upper.rotation.z = Math.min(0.35, uy / 6000);
     rocket.setUpperThrottle(1, game.time);
     rocket.upperNozzle(nozzle);
     game.fx.emit({ pos: nozzle, vel: { x: 0, y: -30, z: 0 }, life: 0.5, size0: 1.6, size1: 0.3, color0: [1, 0.9, 0.7], color1: [1, 0.4, 0.1], alpha: 0.5 });
@@ -289,8 +291,8 @@ export async function runLaunch(s, game, rocket, ctx) {
     }
     rocket.setFins(ease(Math.min(1, Math.max(0, (tau - 15) / 2.0))));
     rocket.setLegs(ease(Math.min(1, Math.max(0, (tau - 23) / 3.0))));
-    windowTarget.copy(booster.position).y += MOUNT_TOP + (rz > 1.5 ? 0 : 16);
-    windowTarget.y -= 0;
+    booster.updateMatrixWorld(true);
+    booster.localToWorld(windowTarget.set(0, 16, 0));
     if (tau > 30.5 && !landed) {
       landed = true;
       s.sayNoWait('varga_land');
@@ -321,15 +323,14 @@ export async function runLaunch(s, game, rocket, ctx) {
   game.scene.add(orbitRoot);
   const hold = upper.parent;
   orbitRoot.add(upper);
-  upper.position.set(0, 0, 0); upper.rotation.set(0, 0, 0);
-  upper.position.y = -8;
+  upper.position.set(0, -8, 0); upper.rotation.set(0, 0, 0);
   rocket.setUpperThrottle(0);
   rocket.setHalo(0);
   rocket.booster.visible = false;
-  game.setAtmosphere({ fog: null, bg: 0x000004, ambient: [0x334466, 0.8], hemi: [0x6688bb, 0x112233, 0.5], exposure: 1.15, bloom: 0.8, bloomThreshold: 0.75, far: 20000 });
+  game.setAtmosphere({ fog: null, bg: 0x000004, ambient: [0x334466, 0.5], hemi: [0x6688bb, 0x112233, 0.35], exposure: 1.0, bloom: 0.6, bloomThreshold: 0.92, far: 20000 });
   cam.near = 0.3; cam.far = 20000; cam.fov = 48; cam.updateProjectionMatrix();
-  const sun = game.lights.add({ pos: new THREE.Vector3(60, 30, 40), color: 0xfff4e0, intensity: 9000, distance: 400 });
-  game.lights.add({ pos: new THREE.Vector3(-30, -40, -30), color: 0x6699ff, intensity: 1500, distance: 200 });
+  const sun = game.lights.add({ pos: new THREE.Vector3(60, 30, 40), color: 0xfff4e0, intensity: 2600, distance: 400 });
+  game.lights.add({ pos: new THREE.Vector3(-30, -40, -30), color: 0x6699ff, intensity: 500, distance: 200 });
   let orbitAng = 0.9, orbitR = 34;
   mode = 'orbit';
   game.camControl = (dt) => {

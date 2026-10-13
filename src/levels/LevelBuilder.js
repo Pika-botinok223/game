@@ -6,8 +6,9 @@ const METALISH = /metal|hazard|grate|plate|rust/;
 
 /** Brush-style geometry helpers. All geometry is merged per material at finish() for performance. */
 export class LevelBuilder {
-  constructor(game) {
+  constructor(game, o = {}) {
     this.game = game;
+    this.parent = o.parent || null;   // where merged meshes / fixtures go (default: game.levelRoot)
     this.groups = new Map();
     this.boxes = [];       // collider records created via box()
     this.count = 0;
@@ -123,7 +124,7 @@ export class LevelBuilder {
       const mat = new THREE.MeshBasicMaterial({ color: new THREE.Color(color).multiplyScalar(1.6) });
       const m = new THREE.Mesh(new THREE.BoxGeometry(o.axis === 'z' ? d : w, 0.06, o.axis === 'z' ? w : d), mat);
       m.position.set(x, y, z);
-      this.game.levelRoot.add(m);
+      (this.parent || this.game.levelRoot).add(m);
       if (o.flicker) { spot.fixture = m; this.game.flickerFixtures.push({ spot, mesh: m, base: new THREE.Color(color).multiplyScalar(1.6) }); }
     }
     return spot;
@@ -138,7 +139,7 @@ export class LevelBuilder {
       const mat = assets.material(grp.tex, grp.mo);
       const mesh = new THREE.Mesh(merged, mat);
       mesh.matrixAutoUpdate = false; mesh.updateMatrix();
-      this.game.levelRoot.add(mesh);
+      (this.parent || this.game.levelRoot).add(mesh);
     }
     this.groups.clear();
   }

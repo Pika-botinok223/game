@@ -14,7 +14,8 @@
     "preview": "vite preview",
     "start": "electron .",
     "dist:mac": "vite build && electron-builder --mac dmg --x64 --arm64 --publish never",
-    "test": "node tests/smoke.mjs"
+    "test": "node tests/smoke.mjs",
+    "test:play": "node tests/smoke.mjs --play"
   },
   "dependencies": {
     "cannon-es": "^0.20.0",

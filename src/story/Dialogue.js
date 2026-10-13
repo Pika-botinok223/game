@@ -86,8 +86,8 @@ export class Dialogue {
       this.hideAt = 0;
       this.current = { ...next, t: 0, speaking: false, started: false, sp };
       const est = Math.max(1.8, (line.text.length * 0.058 + 0.7) / sp.rate);
-      this.current.dur = est;
-      if (line.chime) { this.game.audio.play('pa_chime', { vol: 0.8 }); this.current.delay = 1.3; this.current.dur += 1.3; }
+      this.current.dur = this.game.testMode ? Math.min(est, 0.4) : est;
+      if (line.chime) { this.game.audio.play('pa_chime', { vol: 0.8 }); this.current.delay = this.game.testMode ? 0.2 : 1.3; this.current.dur += this.current.delay; }
       else this.current.delay = 0;
       return;
     }

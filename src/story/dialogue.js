@@ -29,7 +29,7 @@ export const LINES = {
   varga_c4_3: { who: 'varga', text: 'Resonance is climbing... that isn\'t in the model. Alan, it\'s responding! It\'s... answering us!' },
   pa_breach: { who: 'pa', chime: true, text: 'Attention all personnel. This is not a drill. This... is... not... a... drill. Please remain calm and avoid the floor.' },
   varga_c4_4: { who: 'varga', text: 'Alan! They are coming up through the floor! The maintenance locker, grab the wrench and get out of there! Meet me at the maintenance bay!' },
-  varga_c4_5: { who: 'varga', text: 'Go, go! Through the east door, then follow the service corridors down.' },
+  varga_c4_5: { who: 'varga', text: 'Go, go! Through the north door, then follow the service corridors down.' },
 
   // ---- chapter 3
   varga_c3_1: { who: 'varga', text: 'The Cells are waking everywhere, Alan. The only way is up: Pad 39. HALO can still end this, but someone has to launch it. That someone is you.' },

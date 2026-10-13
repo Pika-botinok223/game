@@ -80,7 +80,10 @@ export class Game {
     this.chapter = 0;
     this.level = null;
     this.objective = null;
-    this.godMode = false;
+    this.godMode = this.params.has('god');
+    this.testMode = this.params.has('test');
+    this.ups = parseInt(this.params.get('ups') || '8', 10);
+    this.dtStep = 0.05;
     this.cutscene = false;
     this.camControl = null;
     this.loadToken = 0;
@@ -239,10 +242,13 @@ export class Game {
     if (a.ambient) { this.ambient.color.set(a.ambient[0]); this.ambient.intensity = a.ambient[1]; }
     if (a.hemi) { this.hemi.color.set(a.hemi[0]); this.hemi.groundColor.set(a.hemi[1]); this.hemi.intensity = a.hemi[2]; }
     this.renderer.gl.toneMappingExposure = a.exposure || 1.0;
+    s.environmentIntensity = a.env !== undefined ? a.env : 0.35;
     this.renderer.bloom.strength = a.bloom !== undefined ? a.bloom : 0.45;
     this.renderer.bloom.threshold = a.bloomThreshold !== undefined ? a.bloomThreshold : 0.85;
     this.camera.far = a.far || 400; this.camera.updateProjectionMatrix();
   }
+
+  teleport(x, y, z) { const p = this.player; p.pos.x = x; p.pos.y = y; p.pos.z = z; p.vel.x = p.vel.y = p.vel.z = 0; }
 
   // ------------------------------------------------------------------ pause / death
   pause() {
@@ -391,12 +397,16 @@ export class Game {
   _frame(now) {
     requestAnimationFrame((t) => this._frame(t));
     let dt = (now - this._last) / 1000; this._last = now;
-    dt = Math.min(0.05, Math.max(0.0005, dt));
+    dt = Math.min(this.testMode ? 0.2 : 0.05, Math.max(0.0005, dt));
     this.dt = dt;
     try {
-      if (this.state === 'playing' || this.state === 'dead') this._updateWorld(dt);
+      if ((this.state === 'playing' || this.state === 'dead') && !this.frozenDebug) {
+        if (this.testMode) { for (let i = 0; i < this.ups; i++) { this.dt = this.dtStep; this._updateWorld(this.dtStep); if (this.state !== 'playing' && this.state !== 'dead') break; } }
+        else this._updateWorld(dt);
+      }
       else if (this.state === 'menu') this._updateMenu(dt);
-      this.renderer.render(performance.now() / 1000);
+      this._frameNo = (this._frameNo || 0) + 1;
+      if (!this.testMode || this._frameNo % 6 === 1) this.renderer.render(performance.now() / 1000);
     } catch (e) {
       console.error('frame error', e);
       this._errCount = (this._errCount || 0) + 1;

@@ -36,6 +36,7 @@ export function createSpace() {
   const R = 6000;
   const earth = new THREE.Mesh(new THREE.SphereGeometry(R, 96, 64), new THREE.MeshStandardMaterial({ map: earthTexture(), roughness: 0.9, metalness: 0, emissive: 0x0a1428, emissiveIntensity: 0.55 }));
   earth.position.set(0, -R - 400, 0);
+  earth.rotation.set(1.25, 0.6, 0.2);   // keep the poles out of the camera's view
   g.add(earth);
   const atmoMat = new THREE.ShaderMaterial({
     transparent: true, depthWrite: false, side: THREE.BackSide, blending: THREE.AdditiveBlending,

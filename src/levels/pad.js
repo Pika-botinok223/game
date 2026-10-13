@@ -6,7 +6,7 @@ import { makeSky } from '../render/Sky.js';
 import { cylinder, sign } from './kit.js';
 
 export const MOUNT_TOP = 3.6;
-export const TOP_Y = 40.9;        // crew-arm / cockpit floor height
+export const TOP_Y = 37.35;        // crew-arm / cockpit floor height
 export const TOWER = { x0: 8, x1: 12, z0: -2, z1: 2 };
 
 function brace(game, a, b, r = 0.07, mat) {
@@ -21,14 +21,16 @@ export function buildPad(game, b, o = {}) {
   const steel = assets.material('metal_plate', { metalness: 0.6, roughness: 0.5, color: 0xb04a2a });
   const dark = assets.material(null, { color: 0x2a2f35, metalness: 0.6, roughness: 0.5 });
 
-  game.setAtmosphere({ fog: [0x0b1226, 40, 330], bg: null, ambient: [0x6677aa, 0.45], hemi: [0x8899cc, 0x222233, 0.55], exposure: 1.1, bloom: 0.5, bloomThreshold: 0.8, far: 3000 });
-  const sky = makeSky({ useTexture: true, top: 0x03050d, horizon: 0x1b2748, bottom: 0x05060a, stars: 1, sunDir: [-0.5, 0.35, -0.7], sunColor: 0x4a5a8a, sunSize: 1800 });
+  game.setAtmosphere({ fog: [0x0b1226, 40, 330], bg: null, ambient: [0x6677aa, 0.45], hemi: [0x8899cc, 0x222233, 0.55], exposure: 1.0, bloom: 0.45, bloomThreshold: 0.95, far: 3000, env: 0.18 });
+  const sky = makeSky({ useTexture: false, top: 0x03050d, horizon: 0x1b2748, bottom: 0x05060a, stars: 1, sunDir: [-0.5, 0.35, -0.7], sunColor: 0x4a5a8a, sunSize: 1800 });
   game.levelRoot.add(sky);
   const moon = new THREE.DirectionalLight(0x8fa8ff, 0.9); moon.position.set(-30, 60, 40);
   game.levelRoot.add(moon);
 
   // ground + pad
   b.box(-400, -3, -400, 400, 0, 400, 'sand_ground', { tile: 8, surface: 'concrete' });
+  const farGround = new THREE.Mesh(new THREE.PlaneGeometry(80000, 80000), assets.material(null, { color: 0x4a3c2a, roughness: 1 }));
+  farGround.rotation.x = -Math.PI / 2; farGround.position.y = -0.6; game.levelRoot.add(farGround);
   b.box(-34, -1, -34, 34, 0.25, 34, 'concrete_floor', { tile: 3 });
   for (const [x0, z0, x1, z1] of [[-34, -34, 34, -33.4], [-34, 33.4, 34, 34], [-34, -34, -33.4, 34], [33.4, -34, 34, 34]]) b.box(x0, 0.25, z0, x1, 0.27, z1, 'hazard_stripes', { tile: 1, collide: false });
   // launch mount
@@ -94,11 +96,11 @@ export function buildPad(game, b, o = {}) {
     cylinder(b, x, 8, z, 0.18, 16, 'y', 'metal_plate', { collide: true, color: 0x8a9096 });
     const head = new THREE.Mesh(new THREE.BoxGeometry(2.2, 0.5, 0.4), new THREE.MeshBasicMaterial({ color: new THREE.Color(0xfff4e0).multiplyScalar(2.2) }));
     head.position.set(x, 16.2, z); head.lookAt(0, 8, 0); game.levelRoot.add(head);
-    b.lamp(x * 0.85, 15, z * 0.85, { color: 0xfff0dc, intensity: 900, distance: 80, fixture: false });
+    b.lamp(x * 0.85, 15, z * 0.85, { color: 0xfff0dc, intensity: 420, distance: 80, fixture: false });
   };
   flood(-30, -30); flood(30, -30); flood(-30, 30); flood(30, 30); flood(0, 30); flood(0, -33);
-  b.lamp(6, 36, 0, { color: 0xffe8c8, intensity: 700, distance: 60, fixture: false });
-  b.lamp(-6, 30, 0, { color: 0xfff0dc, intensity: 600, distance: 50, fixture: false });
+  b.lamp(7, 30, 7, { color: 0xffe8c8, intensity: 160, distance: 50, fixture: false });
+  b.lamp(-7, 20, 8, { color: 0xfff0dc, intensity: 140, distance: 40, fixture: false });
 
   // cover: containers + barriers
   const cont = (x, z, rot, c) => {

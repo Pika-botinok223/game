@@ -50,7 +50,7 @@ export class Wrench {
       else if (t < 0.55) { k = (t - 0.3) / 0.25; const e = k * k; rx = 0.7 - 1.7 * e; rz = -0.5 + 0.9 * e; px = 0.1 - 0.3 * e; py = 0.1 - 0.15 * e; pz = 0.1 - 0.25 * e; }
       else { k = (t - 0.55) / 0.45; rx = -1.0 * (1 - k); rz = 0.4 * (1 - k); px = -0.2 * (1 - k); py = -0.05 * (1 - k); pz = -0.15 * (1 - k); }
     }
-    this.hand.rotation.set(rx, ry, rz);
+    this.hand.rotation.set(rx + 0.55, ry, rz + 0.1);
     this.hand.position.set(0.24 + px, -0.26 + py, -0.38 + pz);
   }
 

@@ -13,10 +13,9 @@ export class Manipulator {
     const vm = player.viewmodel;
     this.rig = new THREE.Group();
     this.gun = assets.model('manipulator', { procedural: true });
-    this.gun.position.set(0.17, -0.17, -0.38);
-    this.gun.scale.setScalar(0.95);
-    this.gun.rotation.y = Math.PI;       // barrel points -Z (away from camera)
-    this.armR = Viewmodel.arm(); this.armR.position.set(0.2, -0.26, -0.1); this.armR.rotation.set(0.1, 0, 0);
+    this.gun.position.set(0.19, -0.19, -0.5);
+    this.gun.scale.setScalar(0.62);
+    this.armR = Viewmodel.arm(); this.armR.position.set(0.18, -0.27, -0.12); this.armR.rotation.set(0.15, 0, 0);
     this.armL = Viewmodel.arm(); this.armL.position.set(-0.04, -0.27, -0.2); this.armL.rotation.set(0.0, -0.45, 0);
     this.rig.add(this.gun, this.armR, this.armL);
     vm.attach('manipulator', this.rig);

@@ -1,8 +1,12 @@
 import { Game } from './Game.js';
+import { assets } from './core/Assets.js';
+import { hasProcTexture } from './render/ProcTextures.js';
+import { PROC_MODELS } from './render/ProcModels.js';
 
 const game = new Game();
 window.__game = {
   game,
+  assets, hasProcTexture, PROC_MODELS,
   get chapter() { return game.chapter; },
   get state() { return game.state; },
   get health() { return game.player.health; },
