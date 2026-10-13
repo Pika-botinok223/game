@@ -19,7 +19,7 @@ import { Subtitles } from './ui/Subtitles.js';
 import { Screens } from './ui/Screens.js';
 import { Credits } from './ui/Credits.js';
 import { Dialogue } from './story/Dialogue.js';
-import { CHAPTERS } from './story/dialogue.js';
+import { CHAPTERS } from './story/lines.js';
 import { LevelBuilder } from './levels/LevelBuilder.js';
 import { LEVELS, buildMenuScene } from './levels/index.js';
 

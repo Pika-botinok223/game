@@ -1,4 +1,4 @@
-import { LINES, SPEAKERS } from './dialogue.js';
+import { LINES, SPEAKERS } from './lines.js';
 import { Settings } from '../core/Settings.js';
 
 /** Subtitle + speechSynthesis voice queue. Driven by game time (update(dt)) so it pauses with the game. */

@@ -86,7 +86,7 @@ try {
       const limit = n === 4 ? 420000 : 240000;
       let credits = false;
       while (Date.now() - t0 < limit) {
-        const r = await page.evaluate(() => { const g = window.__game; const o = g.objective; const ok = g.completeObjective(); return { chapter: g.chapter, o, ok, state: g.state, credits: !!document.querySelector('.credits'), health: g.health }; });
+        const r = await page.evaluate(() => { const g = window.__game; const o = g.objective; if (o && o.includes('LAUNCH')) { g.game.ups = 1; g.game.dtStep = 0.2; } const ok = g.completeObjective(); return { chapter: g.chapter, o, ok, state: g.state, credits: !!document.querySelector('.credits'), health: g.health }; });
         if (r.ok && r.o && seen[seen.length - 1] !== r.o) seen.push(r.o);
         if (r.state === 'dead') { await page.evaluate(() => window.__game.setGod(true)); }
         if (r.chapter !== n && r.state !== 'loading') break;

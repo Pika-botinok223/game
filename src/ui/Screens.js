@@ -1,6 +1,6 @@
 import { Settings, DEFAULTS } from '../core/Settings.js';
 import { Save } from '../core/Save.js';
-import { CHAPTERS } from '../story/dialogue.js';
+import { CHAPTERS } from '../story/lines.js';
 
 const OPTIONS = [
   { key: 'sensitivity', label: 'MOUSE SENSITIVITY', type: 'range', min: 0.2, max: 3, step: 0.05, fmt: (v) => v.toFixed(2) },
