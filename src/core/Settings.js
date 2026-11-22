@@ -12,6 +12,7 @@ export const DEFAULTS = {
   fov: 90,
   subtitles: true,
   effects: true, // bloom + vignette + grain
+  devConsole: true, // backtick opens the developer console in-game
 };
 
 class SettingsStore {

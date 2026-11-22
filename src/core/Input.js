@@ -12,17 +12,19 @@ export class Input {
     this.enabled = false;       // gameplay input accepted
     this.onLockChange = null;
     this.onEscape = null;
+    this.blocked = false;       // developer console open: swallow all keys / buttons
 
     window.addEventListener('keydown', (e) => {
+      if (this.blocked) return;
       if (e.code === 'F5' || e.code === 'F12' || e.code === 'F11') return; // let the browser/electron have these
       if (!e.repeat) this.pressed.add(e.code);
       this.down.add(e.code);
       if (['Space', 'Tab', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.code)) e.preventDefault();
     });
-    window.addEventListener('keyup', (e) => { this.down.delete(e.code); this.released.add(e.code); });
+    window.addEventListener('keyup', (e) => { if (this.blocked) return; this.down.delete(e.code); this.released.add(e.code); });
     window.addEventListener('blur', () => { this.down.clear(); });
     window.addEventListener('mousedown', (e) => {
-      if (!this.enabled) return;
+      if (!this.enabled || this.blocked) return;
       const k = 'Mouse' + e.button;
       this.pressed.add(k); this.down.add(k);
     });

@@ -12,6 +12,7 @@ const OPTIONS = [
   { key: 'voice', label: 'VOICE VOLUME', type: 'range', min: 0, max: 1, step: 0.01, fmt: (v) => Math.round(v * 100) },
   { key: 'subtitles', label: 'SUBTITLES', type: 'check' },
   { key: 'effects', label: 'BLOOM / GRAIN / VIGNETTE', type: 'check' },
+  { key: 'devConsole', label: 'DEVELOPER CONSOLE (~)', type: 'check' },
 ];
 
 /** Main menu, options, chapter select, pause and death screens (DOM). */
@@ -71,9 +72,11 @@ export class Screens {
 
   chapters(back) {
     this.current = 'chapters';
+    const dev = Save.allUnlocked();
     const d = this._el(`
       <div class="panel"><h2>CHAPTER SELECT</h2>
-        <div class="chapters">${CHAPTERS.map((c) => `<div class="chapter-btn" data-n="${c.num}"><span class="n">CHAPTER ${c.num}</span><span class="t">${c.title}</span></div>`).join('')}</div>
+        <div class="chapters">${CHAPTERS.map((c) => `<div class="chapter-btn ${dev ? 'dev' : ''}" data-n="${c.num}"><span class="n">CHAPTER ${c.num}</span><span class="t">${c.title}</span></div>`).join('')}</div>
+        ${dev ? '<div class="dev-note">DEVELOPER MODE: ALL CHAPTERS UNLOCKED</div>' : ''}
         <div class="btn" data-back>BACK</div>
       </div>`, back === 'pause' ? 'pause-bg' : '');
     this._on(d, '[data-n]', (e) => this.game.startChapter(parseInt(e.dataset.n, 10)));

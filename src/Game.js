@@ -22,6 +22,9 @@ import { Dialogue } from './story/Dialogue.js';
 import { CHAPTERS } from './story/lines.js';
 import { LevelBuilder } from './levels/LevelBuilder.js';
 import { LEVELS, buildMenuScene } from './levels/index.js';
+import { DevConsole } from './ui/Console.js';
+import { Crawler } from './entities/Crawler.js';
+import { Spitter } from './entities/Spitter.js';
 
 const QUOTES = [
   'The Cells thank you for your contribution.',
@@ -88,18 +91,29 @@ export class Game {
     this.camControl = null;
     this.loadToken = 0;
 
+    // ---- cheats / developer console state (see core/Commands.js)
+    this.svCheats = false;
+    this.cheats = { buddha: false, notarget: false, infinite_suit: false, superpunt: false, bighead: false };
+    this.timescale = 1;
+    this.gravityUnits = 600; // Source units: 600 = default
+    this.showFps = false;
+    this._konami = [];
+
     this.player = new Player(this);
+    this.console = new DevConsole(this);
 
     this.input.onLockChange = (locked) => {
-      if (!locked && this.state === 'playing' && !this.debug && !this.noPause) this.pause();
+      if (!locked && this.state === 'playing' && !this.debug && !this.noPause && !this.console.open) this.pause();
     };
+    window.addEventListener('keydown', (e) => this._konamiKey(e));
     window.addEventListener('keydown', (e) => {
+      if (this.console.open) return;
       if (e.code === 'Escape') {
         if (this.state === 'playing' && !this.noPause) this.pause();
         else if (this.state === 'paused') this.resume();
       }
     });
-    window.addEventListener('blur', () => { if (this.state === 'playing' && !this.debug && !this.noPause) this.pause(); });
+    window.addEventListener('blur', () => { if (this.state === 'playing' && !this.debug && !this.noPause && !this.console.open) this.pause(); });
 
     this._last = performance.now();
     requestAnimationFrame((t) => this._frame(t));
@@ -162,6 +176,7 @@ export class Game {
     this.chapter = n;
     this.menuScene = null;
     this.camControl = null; this.cutscene = false;
+    this.applyGravity();
     this.level = mod.build(this, b);
     b.finish();
     this.loadingEl.querySelector('.bar > div').style.width = '90%';
@@ -249,6 +264,74 @@ export class Game {
   }
 
   teleport(x, y, z) { const p = this.player; p.pos.x = x; p.pos.y = y; p.pos.z = z; p.vel.x = p.vel.y = p.vel.z = 0; }
+
+  // ------------------------------------------------------------------ cheats / console helpers
+  /** sv_gravity: 600 is the Source default; maps onto cannon gravity (-18) and the player controller (20). */
+  applyGravity() {
+    const k = this.gravityUnits / 600;
+    this.physics.world.gravity.set(0, -18 * k, 0);
+    this.player.gravity = 20 * k;
+  }
+  /** names of every cheat that is currently active (for the HUD line, `status` and sv_cheats 0). */
+  activeCheats() {
+    const out = [];
+    if (this.godMode) out.push('god');
+    if (this.player.noclip) out.push('noclip');
+    for (const k of ['buddha', 'notarget', 'infinite_suit', 'superpunt', 'bighead']) if (this.cheats[k]) out.push(k);
+    if (this.timescale !== 1) out.push('host_timescale');
+    if (this.gravityUnits !== 600) out.push('sv_gravity');
+    return out;
+  }
+  disableAllCheats() {
+    this.godMode = false;
+    this.player.setNoclip(false);
+    for (const k of Object.keys(this.cheats)) this.cheats[k] = false;
+    this.player.weapons.manipulator.setSuper(false);
+    this.timescale = 1;
+    this.gravityUnits = 600; this.applyGravity();
+    this._applyBighead();
+  }
+  setShowFps(v) {
+    this.showFps = !!v;
+    if (!this.fpsEl) {
+      this.fpsEl = document.createElement('div');
+      this.fpsEl.className = 'fps-counter';
+      document.body.appendChild(this.fpsEl);
+    }
+    this.fpsEl.style.display = this.showFps ? 'block' : 'none';
+  }
+  completeObjective() {
+    const o = this.objective;
+    if (o && o.skip) { o.skip(); return true; }
+    return false;
+  }
+  /** Konami code on the main menu: unlocks everything and enables cheats for the session. */
+  _konamiKey(e) {
+    const SEQ = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
+    if (this.state !== 'menu' || this.console.open || e.repeat) { this._konami.length = 0; return; }
+    this._konami.push(e.code);
+    if (this._konami.length > SEQ.length) this._konami.shift();
+    if (this._konami.length === SEQ.length && SEQ.every((c, i) => c === this._konami[i])) {
+      this._konami.length = 0;
+      Save.unlockAll();
+      this.svCheats = true;
+      this.audio.play('suit_beep', { vol: 0.9, throttle: 0 });
+      this.console.toast('DEVELOPER MODE UNLOCKED \u2014 press ~ for the console', 4.5);
+      if (this.screens.current === 'chapters') this.screens.chapters('main');
+    }
+  }
+  /** bighead: scale NPC heads / creatures. Applied lazily so freshly spawned entities pick it up too. */
+  _applyBighead() {
+    const on = this.cheats.bighead;
+    for (const e of this.entities) {
+      if (!!e._bigOn === on) continue;
+      if (e.isDead) continue;
+      if (e.parts && e.parts.head) { e.parts.head.scale.setScalar(on ? 2.5 : 1); e._bigOn = on; }
+      else if (e instanceof Crawler || e instanceof Spitter) {
+        e.group.scale.setScalar(on ? (e instanceof Crawler ? 2.5 : 1.6) : 1); e._bigOn = on;
+      }
+    }
+  }
 
   // ------------------------------------------------------------------ pause / death
   pause() {
@@ -399,10 +482,15 @@ export class Game {
     let dt = (now - this._last) / 1000; this._last = now;
     dt = Math.min(this.testMode ? 0.2 : 0.05, Math.max(0.0005, dt));
     this.dt = dt;
+    if (this.showFps) {
+      this._fpsAcc = (this._fpsAcc || 0) + dt; this._fpsN = (this._fpsN || 0) + 1;
+      if (this._fpsAcc >= 0.4) { this.fpsEl.textContent = Math.round(this._fpsN / this._fpsAcc) + ' fps'; this._fpsAcc = 0; this._fpsN = 0; }
+    }
+    this.hud.setCheatLine(this.state === 'playing' || this.state === 'paused' || this.state === 'dead' ? this.activeCheats() : []);
     try {
-      if ((this.state === 'playing' || this.state === 'dead') && !this.frozenDebug) {
-        if (this.testMode) { for (let i = 0; i < this.ups; i++) { this.dt = this.dtStep; this._updateWorld(this.dtStep); this.input.endFrame(); if (this.state !== 'playing' && this.state !== 'dead') break; } }
-        else this._updateWorld(dt);
+      if ((this.state === 'playing' || this.state === 'dead') && !this.frozenDebug && !this.console.open) {
+        if (this.testMode) { for (let i = 0; i < this.ups; i++) { this._stepScaled(this.dtStep); if (this.state !== 'playing' && this.state !== 'dead') break; } }
+        else this._stepScaled(dt);
       }
       else if (this.state === 'menu') this._updateMenu(dt);
       this._frameNo = (this._frameNo || 0) + 1;
@@ -413,6 +501,19 @@ export class Game {
       window.__lastError = String(e && e.stack || e);
     }
     this.input.endFrame();
+  }
+
+  /** one logical step of `base` seconds, scaled by host_timescale (fast-forward is split so no sub-step exceeds `base`). */
+  _stepScaled(base) {
+    const ts = this.timescale;
+    const n = ts > 1 ? Math.ceil(ts) : 1;
+    const sdt = base * ts / n;
+    for (let i = 0; i < n; i++) {
+      this.dt = sdt;
+      this._updateWorld(sdt);
+      if (this.testMode || i < n - 1) this.input.endFrame();
+      if (this.state !== 'playing' && this.state !== 'dead') break;
+    }
   }
 
   _updateMenu(dt) {
@@ -461,6 +562,7 @@ export class Game {
     }
     if (this.level && this.level.update) this.level.update(dt);
     this.scheduler.tick(dt);
+    if (this.cheats.bighead || this._bhDirty) { this._applyBighead(); this._bhDirty = this.cheats.bighead; }
     this.dialogue.update(dt);
     this._followSky();
     this._tickFixtures();

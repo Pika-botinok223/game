@@ -1,7 +1,7 @@
 {
   "name": "ave-maria",
   "productName": "Ave Maria",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Ave Maria - a short Half-Life / Portal style first-person story game.",
   "author": "Ave Maria Team",
   "license": "MIT",
@@ -14,7 +14,7 @@
     "preview": "vite preview",
     "start": "electron .",
     "dist:mac": "vite build && electron-builder --mac dmg --x64 --publish never && electron-builder --mac dmg --arm64 --publish never",
-    "test": "node tests/smoke.mjs && node tests/tram_exit.mjs",
+    "test": "node tests/smoke.mjs && node tests/cheats.mjs && node tests/tram_exit.mjs",
     "test:play": "node tests/smoke.mjs --play",
     "test:walk": "node tests/tram_exit.mjs --full && node tests/gates.mjs"
   },

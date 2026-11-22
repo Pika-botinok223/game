@@ -21,6 +21,10 @@ export class HUD {
       <div class="cam-label" id="hud-cam"></div>
     `;
     root.appendChild(this.root);
+    this.cheatEl = document.createElement('div');
+    this.cheatEl.className = 'cheat-line';
+    root.appendChild(this.cheatEl);
+    this._cheatTxt = '';
     const $ = (id) => this.root.querySelector('#' + id);
     this.el = {
       health: $('hud-health'), suit: $('hud-suit'), weapon: $('hud-weapon'), cross: $('hud-cross'), dmg: $('hud-dmg'), flash: $('hud-flash'),
@@ -38,6 +42,15 @@ export class HUD {
     this.weaponsHave = {};
     this.shown = true;
     this.visible = false;
+  }
+
+  /** amber "CHEATS: GOD NOCLIP" line under the HUD. */
+  setCheatLine(list) {
+    const txt = list.length ? 'CHEATS: ' + list.join(' ').toUpperCase() : '';
+    if (txt === this._cheatTxt) return;
+    this._cheatTxt = txt;
+    this.cheatEl.textContent = txt;
+    this.cheatEl.classList.toggle('show', !!txt);
   }
 
   setVisible(v) { this.visible = v; this.root.classList.toggle('off', !v); }

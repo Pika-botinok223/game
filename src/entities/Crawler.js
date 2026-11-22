@@ -30,6 +30,45 @@ export class Crawler extends Enemy {
     this.center = new THREE.Vector3(x, y + 0.25, z);
   }
 
+  /** super-punted / thrown by the M-7: tumbles through the air and dies on impact. */
+  fling(dir, speed) {
+    if (this.isDead) return;
+    this.held = false; this.flung = 4; this.flungAge = 0;
+    this.body.vel.x = dir.x * speed; this.body.vel.y = dir.y * speed + 1; this.body.vel.z = dir.z * speed;
+    this.body.onGround = false; this.state = 'leap';
+    this.game.audio.playAt('crawler_attack', this.pos, 1, { pitch: 1.5 });
+  }
+  _updateFlung(dt) {
+    const g = this.game, b = this.body;
+    this.flung -= dt; this.flungAge += dt;
+    b.vel.y -= 8 * dt;
+    // sub-step: a super punt moves several metres per frame and must not tunnel through floors
+    const n = Math.min(24, Math.max(1, Math.ceil(Math.hypot(b.vel.x, b.vel.y, b.vel.z) * dt / 0.25)));
+    let hit = false;
+    for (let i = 0; i < n && !hit; i++) {
+      b.hitWall = false;
+      moveBody(b, dt / n, g.statics, { dynamic: g.physics.colliders });
+      hit = b.hitWall || b.onGround || b.hitCeiling;
+    }
+    b.hitWall = hit;
+    this.group.position.set(b.pos.x, b.pos.y, b.pos.z);
+    this.group.rotation.x += dt * 14; this.group.rotation.z += dt * 9;
+    this.center.set(b.pos.x, b.pos.y + 0.25, b.pos.z);
+    // hurt other enemies on the way
+    for (const o of g.damageables()) {
+      if (o === this || !o.alive) continue;
+      const c = o.hitCenter();
+      if (Math.hypot(c.x - b.pos.x, c.y - b.pos.y, c.z - b.pos.z) < 0.5 + (o.hitRadius || 0.4)) o.takeDamage(40, { type: 'prop', from: b.pos });
+    }
+    if (this.flungAge > 0.06 && (b.hitWall || b.onGround || b.hitCeiling || this.flung <= 0)) {
+      this.flung = 0;
+      this.group.rotation.x = 0; this.group.rotation.z = 0;
+      g.splat(this.center, 22);
+      g.audio.playAt('metal_impact_2', this.pos, 0.8);
+      this.hp = 0; this.die({ type: 'explosion' });
+    }
+  }
+
   shove(dir, power) {
     const l = Math.hypot(dir.x, dir.z) || 1;
     this.body.vel.x = dir.x / l * power * 2.2; this.body.vel.z = dir.z / l * power * 2.2; this.body.vel.y = 3;
@@ -75,6 +114,14 @@ export class Crawler extends Enemy {
       if (this.removeT <= 0) { this.alive = false; this.group.parent && this.group.parent.remove(this.group); }
       return;
     }
+    if (this.held) { // grabbed by a super-charged M-7: follow the manipulator
+      this.group.position.set(b.pos.x, b.pos.y, b.pos.z);
+      this.group.rotation.y += dt * 9; this.model.rotation.x = 0.5;
+      this.center.set(b.pos.x, b.pos.y + 0.25, b.pos.z);
+      return;
+    }
+    if (this.flung > 0) return this._updateFlung(dt);
+    if (g.cheats.notarget && this.state !== 'idle') this.state = 'idle';
     const dx = p.pos.x - b.pos.x, dz = p.pos.z - b.pos.z;
     const dist = Math.hypot(dx, dz);
     const eye = { x: b.pos.x, y: b.pos.y + 0.3, z: b.pos.z };
@@ -86,7 +133,7 @@ export class Crawler extends Enemy {
       case 'idle': {
         this.idleT -= dt;
         if (this.idleT <= 0) { this.idleT = 3 + Math.random() * 5; if (dist < 22) g.audio.playAt('crawler_idle', this.pos, 0.6); }
-        if (dist < this.aggro && !p.dead && g.statics.lineOfSight(eye, target)) { this.state = 'chase'; g.audio.playAt('crawler_idle', this.pos, 0.9); }
+        if (dist < this.aggro && !p.dead && !g.cheats.notarget && g.statics.lineOfSight(eye, target)) { this.state = 'chase'; g.audio.playAt('crawler_idle', this.pos, 0.9); }
         b.vel.x *= 0.8; b.vel.z *= 0.8;
         break;
       }

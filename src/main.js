@@ -16,6 +16,17 @@ window.__game = {
   get lastError() { return window.__lastError || null; },
   get playerPos() { const p = game.player.pos; return { x: p.x, y: p.y, z: p.z }; },
   get entities() { return game.entities.length; },
+  // cheats / console state (tests/cheats.mjs)
+  get god() { return game.godMode; },
+  get noclip() { return game.player.noclip; },
+  get svCheats() { return game.svCheats; },
+  get cheats() { return { god: game.godMode, noclip: game.player.noclip, ...game.cheats }; },
+  get weapons() { return { wrench: !!game.player.has.wrench, manipulator: !!game.player.has.manipulator }; },
+  get enemiesAlive() { return game.enemies.filter((e) => !e.isDead).length; },
+  get timescale() { return game.timescale; },
+  get gravity() { return game.gravityUnits; },
+  get consoleOpen() { return game.console.open; },
+  get locked() { return game.input.locked; },
   skipTo(n) { return game.startChapter(n); },
   completeObjective() {
     const o = game.objective;

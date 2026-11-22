@@ -56,7 +56,7 @@ export class Nest extends Enemy {
     for (let i = 0; i < this.eggs.length; i++) this.eggs[i].scale.setScalar(1 + Math.sin(this.t * 3 + i) * 0.1);
     const g = this.game;
     this.kids = this.kids.filter((k) => !k.isDead);
-    if (this.playerDist() < 26) {
+    if (this.playerDist() < 26 && !g.cheats.notarget) {
       this.spawnT -= dt;
       if (this.spawnT <= 0 && this.kids.length < this.max) {
         this.spawnT = this.interval;

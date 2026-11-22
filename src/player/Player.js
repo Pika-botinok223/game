@@ -28,6 +28,7 @@ export class Player {
     this.lastHurt = -10;
     this.lowHealthTimer = 0;
     this.noclip = false;
+    this.gravity = GRAVITY;       // m/s^2 (sv_gravity scales this)
     this.camera = game.camera;
     this.eyePos = new THREE.Vector3();
     this.forward = new THREE.Vector3(0, 0, -1);
@@ -52,6 +53,7 @@ export class Player {
 
   giveWeapon(name, select = true) {
     this.has[name] = true;
+    this.game.renderer.renderViewmodel = true;
     this.game.hud.setWeaponsAvailable(this.has);
     if (select || !this.current) this.select(name);
   }
@@ -68,15 +70,17 @@ export class Player {
   get center() { return { x: this.pos.x, y: this.pos.y + this.body.height * 0.55, z: this.pos.z }; }
 
   // ---------------------------------------------------------------- damage
-  damage(amount, from, kind = 'generic') {
-    if (this.dead || this.game.godMode) return;
+  damage(amount, from, kind = 'generic', force = false) {
+    if (this.dead || (this.game.godMode && !force)) return;
+    const cheats = this.game.cheats;
     let toHealth = amount;
     if (this.suit > 0 && kind !== 'fall') {
       const absorbed = Math.min(this.suit, amount * 0.7);
-      this.suit -= absorbed;
+      if (!cheats.infinite_suit) this.suit -= absorbed;
       toHealth = amount - absorbed;
     }
     this.health = Math.max(0, this.health - toHealth);
+    if (cheats.buddha && !force) this.health = Math.max(1, this.health);
     this.lastHurt = this.game.time;
     this.shake(0.04 + Math.min(0.12, amount * 0.004), 0.3);
     this.game.audio.play(this.game.audio.variant('player_hurt', 3), { vol: 0.8, throttle: 120 });
@@ -129,7 +133,7 @@ export class Player {
     const wl = Math.hypot(wx, wz);
     if (wl > 0) { wx /= wl; wz /= wl; }
     let maxSpd = this.crouched ? CROUCH_SPD : (canControl && input.isDown('ShiftLeft') ? SLOW : WALK);
-    if (this.noclip) { this._noclip(dt, input, wx, wz); } else {
+    if (this.noclip) { this._noclip(dt, input, canControl ? fwd : 0, canControl ? side : 0, canControl); } else {
       const wasGround = b.onGround;
       const prevVy = this.vel.y;
       // ground friction
@@ -157,7 +161,7 @@ export class Player {
         this.vel.y = JUMP_V; b.onGround = false;
         g.audio.playVar('footstep_' + this._surface(), 4, { vol: 0.5, pitch: 0.8 });
       }
-      this.vel.y -= GRAVITY * dt;
+      this.vel.y -= this.gravity * dt;
       if (this.vel.y < -40) this.vel.y = -40;
       const prevY = this.pos.y;
       this._ride(dt);
@@ -219,10 +223,59 @@ export class Player {
     this.eye += (target - this.eye) * Math.min(1, 14 * (this.game.dt || 0.016));
   }
 
-  _noclip(dt, input, wx, wz) {
-    const sp = 12;
-    this.vel.x = wx * sp; this.vel.z = wz * sp; this.vel.y = (input.isDown('Space') ? sp : 0) - (input.isDown('ControlLeft') ? sp : 0);
+  /** noclip: fly along the look direction. Space up, Ctrl/C down, Shift fast. */
+  _noclip(dt, input, fwd, side, canControl) {
+    const fast = canControl && input.isDown('ShiftLeft') ? 3 : 1;
+    const sp = 12 * fast;
+    const cp = Math.cos(this.pitch), sp2 = Math.sin(this.pitch);
+    const sinY = Math.sin(this.yaw), cosY = Math.cos(this.yaw);
+    let dx = -sinY * cp * fwd + cosY * side;
+    let dy = sp2 * fwd;
+    let dz = -cosY * cp * fwd - sinY * side;
+    if (canControl) {
+      if (input.isDown('Space')) dy += 1;
+      if (input.isDown('ControlLeft') || input.isDown('ControlRight') || input.isDown('KeyC')) dy -= 1;
+    }
+    const l = Math.hypot(dx, dy, dz);
+    if (l > 1) { dx /= l; dy /= l; dz /= l; }
+    this.vel.x = dx * sp; this.vel.y = dy * sp; this.vel.z = dz * sp;
     this.pos.x += this.vel.x * dt; this.pos.y += this.vel.y * dt; this.pos.z += this.vel.z * dt;
+    this.body.onGround = false; this.body.groundBox = null; this.fallSpeed = 0;
+  }
+
+  /** Toggle noclip. Turning it off nudges the body out of any solid it is inside. */
+  setNoclip(on) {
+    on = !!on;
+    if (on === this.noclip) return this.noclip;
+    this.noclip = on;
+    this.vel.x = this.vel.y = this.vel.z = 0;
+    this.fallSpeed = 0;
+    if (!on) this._unstick();
+    return this.noclip;
+  }
+
+  _unstick() {
+    const b = this.body, r = b.r, h = b.height, EPS = 1e-4;
+    const boxes = this.game.statics.boxes;
+    const hit = (x, y, z) => {
+      for (const c of boxes) {
+        if (c.enabled && c.solid !== false && x - r < c.maxX - EPS && x + r > c.minX + EPS && y < c.maxY - EPS && y + h > c.minY + EPS && z - r < c.maxZ - EPS && z + r > c.minZ + EPS) return true;
+      }
+      return false;
+    };
+    const { x, y, z } = this.pos;
+    if (!hit(x, y, z)) return;
+    // search outwards (rings) and up/down for the nearest free spot
+    for (let d = 0.25; d <= 12; d += 0.25) {
+      for (const dy of [0, 0.25, -0.25, 0.5, -0.5, 1, -1, 2, -2, 4]) {
+        for (let k = 0; k < 16; k++) {
+          const a = (k / 16) * Math.PI * 2;
+          const nx = x + Math.cos(a) * d, nz = z + Math.sin(a) * d, ny = y + dy;
+          if (!hit(nx, ny, nz)) { this.pos.x = nx; this.pos.y = ny; this.pos.z = nz; return; }
+        }
+      }
+      if (!hit(x, y + d, z)) { this.pos.y = y + d; return; }
+    }
   }
 
   _surface() {

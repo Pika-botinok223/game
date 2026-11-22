@@ -99,10 +99,11 @@ export class Spitter extends Enemy {
     const dist = Math.hypot(dx, dz);
     const head = new THREE.Vector3(this.pos.x, this.pos.y + 1.2, this.pos.z);
     const c = p.center;
-    const los = dist < this.range && !p.dead && g.statics.lineOfSight(head, c);
+    const los = dist < this.range && !p.dead && !g.cheats.notarget && g.statics.lineOfSight(head, c);
     if (los) this.awake = true;
     const targetYaw = Math.atan2(dx, dz);
-    if (this.awake) {
+    if (g.cheats.notarget) { this.charge = 0; if (this.sac) this.sac.scale.setScalar(1); }
+    if (this.awake && !g.cheats.notarget) {
       let dy = targetYaw - this.yaw; while (dy > Math.PI) dy -= Math.PI * 2; while (dy < -Math.PI) dy += Math.PI * 2;
       this.yaw += dy * Math.min(1, dt * 5);
     } else this.yaw += Math.sin(this.t * 0.4) * dt * 0.2;
